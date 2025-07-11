@@ -1,0 +1,24 @@
+[
+  {
+    "session_id": "test123",
+    "stop_hook_active": true,
+    "transcript_path": "/nonexistent/path.jsonl"
+  },
+  {
+    "session_id": "test123",
+    "stop_hook_active": true,
+    "transcript_path": "/nonexistent/path.jsonl"
+  },
+  {
+    "session_id": "36b24dcd-5d23-4ab3-94f2-2345c2fb318a",
+    "transcript_path": "/Users/joshuaoliphant/.claude/projects/-Users-joshuaoliphant--claude/36b24dcd-5d23-4ab3-94f2-2345c2fb318a.jsonl",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
+  },
+  {
+    "session_id": "36b24dcd-5d23-4ab3-94f2-2345c2fb318a",
+    "transcript_path": "/Users/joshuaoliphant/.claude/projects/-Users-joshuaoliphant--claude/36b24dcd-5d23-4ab3-94f2-2345c2fb318a.jsonl",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
+  }
+]

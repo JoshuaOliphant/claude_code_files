@@ -1,0 +1,118 @@
+[
+  {
+    "type": "summary",
+    "summary": "Hook Config Error: Missing Stop Hook File",
+    "leafUuid": "fc29398e-c7b5-4683-be7e-1d1181195844"
+  },
+  {
+    "parentUuid": null,
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/joshuaoliphant/.claude",
+    "sessionId": "36b24dcd-5d23-4ab3-94f2-2345c2fb318a",
+    "version": "1.0.48",
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": "hello"
+    },
+    "uuid": "9693d037-b31e-4035-a49e-7bff2e19d74a",
+    "timestamp": "2025-07-11T05:47:13.732Z"
+  },
+  {
+    "parentUuid": "9693d037-b31e-4035-a49e-7bff2e19d74a",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/joshuaoliphant/.claude",
+    "sessionId": "36b24dcd-5d23-4ab3-94f2-2345c2fb318a",
+    "version": "1.0.48",
+    "message": {
+      "id": "msg_01T6rHSSrxbSbSKZcjZsaJEK",
+      "type": "message",
+      "role": "assistant",
+      "model": "claude-opus-4-20250514",
+      "content": [
+        {
+          "type": "text",
+          "text": "Hello LaBoeuf! How can I help you today?"
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 17203,
+        "output_tokens": 16,
+        "service_tier": "standard"
+      }
+    },
+    "requestId": "req_011CQzhnbdJQLrf3KQQXPzJK",
+    "type": "assistant",
+    "uuid": "3195e223-dd5a-4967-b986-a707632d82fa",
+    "timestamp": "2025-07-11T05:47:16.316Z"
+  },
+  {
+    "parentUuid": "3195e223-dd5a-4967-b986-a707632d82fa",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/joshuaoliphant/.claude",
+    "sessionId": "36b24dcd-5d23-4ab3-94f2-2345c2fb318a",
+    "version": "1.0.48",
+    "type": "system",
+    "content": "\u001b[1mStop\u001b[22m [uv run /Users/joshuaoliphant/.claude/hooks/stop.py --chat] completed successfully",
+    "isMeta": false,
+    "timestamp": "2025-07-11T05:47:21.252Z",
+    "uuid": "42cd65a2-d127-4243-927c-0cfc47c70421",
+    "toolUseID": "012b57aa-6bfc-49a1-99c7-7eaec5a12e2e",
+    "level": "info"
+  },
+  {
+    "parentUuid": "42cd65a2-d127-4243-927c-0cfc47c70421",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/joshuaoliphant/.claude",
+    "sessionId": "36b24dcd-5d23-4ab3-94f2-2345c2fb318a",
+    "version": "1.0.48",
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": "hello again!"
+    },
+    "uuid": "f75c4f14-75a7-471b-853e-26a7dd4e7cb5",
+    "timestamp": "2025-07-11T05:53:56.306Z"
+  },
+  {
+    "parentUuid": "f75c4f14-75a7-471b-853e-26a7dd4e7cb5",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/joshuaoliphant/.claude",
+    "sessionId": "36b24dcd-5d23-4ab3-94f2-2345c2fb318a",
+    "version": "1.0.48",
+    "message": {
+      "id": "msg_01SeeYvQh6jcpESZLQWMdS9a",
+      "type": "message",
+      "role": "assistant",
+      "model": "claude-opus-4-20250514",
+      "content": [
+        {
+          "type": "text",
+          "text": "Hey LaBoeuf! Good to see you again. What can I help you with today?"
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 17225,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 23,
+        "service_tier": "standard"
+      }
+    },
+    "requestId": "req_011CQziJGvzQcSdWTXs7pcET",
+    "type": "assistant",
+    "uuid": "7a12ec8f-f947-41b6-9f5e-643f89858402",
+    "timestamp": "2025-07-11T05:54:00.644Z"
+  }
+]
