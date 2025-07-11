@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Agent",
+      "Glob",
+      "Grep",
+      "ls",
+      "Read"
+    ],
+    "deny": []
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "curl -d \"Claude Code has finished\" ntfy.sh/claude_code_alerts"
+          }
+        ]
+      }
+    ]
+  }
+}
