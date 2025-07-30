@@ -1,11 +1,18 @@
 {
   "permissions": {
     "allow": [
-      "Agent",
-      "Glob",
-      "Grep",
-      "ls",
-      "Read"
+      "Bash(mkdir:*)",
+      "Bash(uv:*)",
+      "Bash(find:*)",
+      "Bash(mv:*)",
+      "Bash(grep:*)",
+      "Bash(npm:*)",
+      "Bash(ls:*)",
+      "Bash(cp:*)",
+      "Write",
+      "Edit",
+      "Bash(chmod:*)",
+      "Bash(touch:*)"
     ],
     "deny": []
   },
@@ -16,7 +23,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "uv run /Users/joshuaoliphant/.claude/hooks/pre_tool_use.py"
+            "command": "uv run hooks/pre_tool_use.py"
           }
         ]
       }
@@ -27,7 +34,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "uv run /Users/joshuaoliphant/.claude/hooks/post_tool_use.py"
+            "command": "uv run hooks/post_tool_use.py"
           }
         ]
       }
@@ -38,7 +45,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "uv run /Users/joshuaoliphant/.claude/hooks/notifications.py --notify"
+            "command": "uv run hooks/notifications.py --notify"
           }
         ]
       }
@@ -49,7 +56,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "uv run /Users/joshuaoliphant/.claude/hooks/stop.py --chat"
+            "command": "uv run hooks/stop.py --chat"
           }
         ]
       }
@@ -60,7 +67,39 @@
         "hooks": [
           {
             "type": "command",
-            "command": "uv run /Users/joshuaoliphant/.claude/hooks/sub_agent_stop.py"
+            "command": "uv run hooks/subagent_stop.py"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run hooks/user_prompt_submit.py --log-only"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run hooks/pre_compact.py"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run hooks/session_start.py"
           }
         ]
       }
