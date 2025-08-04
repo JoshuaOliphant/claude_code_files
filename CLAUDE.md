@@ -64,3 +64,7 @@
 # UI Changes
 
 - Whenever you make changes that would affect the UI, test it out with the puppeteer mcp
+
+# Code Quality
+
+- Always run the tests that you create to verify that they work.
