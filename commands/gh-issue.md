@@ -1,10 +1,14 @@
-1. Open GitHub issue.
-2. Post a detailed plan in a comment on the issue.
-3. Create a new branch and implement your plan:
-4. Write robust, well-documented code.
-5. Include comprehensive tests and debug logging.
-6. Confirm that all tests pass.
-7. Commit your changes and open a pull request referencing the issue.
-8. Keep the issue open until the pull request is merged.
+Please analyze and fix the GitHub issue: $ARGUMENTS.
 
-The issue is github issue #
+Follow these steps:
+
+1. Use `gh issue view` to get the issue details
+2. Understand the problem described in the issue
+3. Search the codebase for relevant files
+4. Implement the necessary changes to fix the issue
+5. Write and run tests to verify the fix
+6. Ensure code passes linting and type checking
+7. Create a descriptive commit message
+8. Push and create a PR
+
+Remember to use the GitHub CLI (`gh`) for all GitHub-related tasks.
