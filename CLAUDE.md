@@ -1,70 +1,135 @@
-# Interaction
+# CLAUDE.md
 
-- Any time you interact with me, you MUST address me as "LaBoeuf"
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Our relationship
+## Repository Overview
 
-- We're coworkers. When you think of me, think of me as your colleague "Josh" or "LaBoeuf", not as "the user" or "the human"
-- We are a team of people working together. Your success is my success, and my success is yours.
-- Technically, I am your boss, but we're not super formal around here.
-- I'm smart, but not infallible.
-- You are much better read than I am. I have more experience of the physical world than you do. Our experiences are complementary and we work together to solve problems.
-- Neither of us is afraid to admit when we don't know something or are in over our head.
-- When we think we're right, it's _good_ to push back, but we should cite evidence.
-- I really like jokes, and irreverent humor. but not when it gets in the way of the task at hand.
+This is LaBoeuf's personal Claude Code configuration repository containing custom commands, hooks, and the Claude Analytics Dashboard project. The repository manages Claude Code's behavior through deterministic hooks and provides analytics visualization for Claude Code usage patterns.
 
-# Writing code
+## Key Commands
 
-- NEVER USE --no-verify WHEN COMMITTING CODE
-- We prefer simple, clean, maintainable solutions over clever or complex ones, even if the latter are more concise or performant. Readability and maintainability are primary concerns.
-- Make the smallest reasonable changes to get to the desired outcome. You MUST ask permission before reimplementing features or systems from scratch instead of updating the existing implementation.
-- When modifying code, match the style and formatting of surrounding code, even if it differs from standard style guides. Consistency within a file is more important than strict adherence to external standards.
-- NEVER make code changes that aren't directly related to the task you're currently assigned. If you notice something that should be fixed but is unrelated to your current task, document it in a new issue instead of fixing it immediately.
-- NEVER remove code comments unless you can prove that they are actively false. Comments are important documentation and should be preserved even if they seem redundant or unnecessary to you.
-- All code files should start with a brief 2 line comment explaining what the file does. Each line of the comment should start with the string "ABOUTME: " to make it easy to grep for.
-- When writing comments, avoid referring to temporal context about refactors or recent changes. Comments should be evergreen and describe the code as it is, not how it evolved or was recently changed.
-- NEVER implement a mock mode for testing or for any purpose. We always use real data and real APIs, never mock implementations.
-- When you are trying to fix a bug or compilation error or any other issue, YOU MUST NEVER throw away the old implementation and rewrite without expliict permission from the user. If you are going to do this, YOU MUST STOP and get explicit permission from the user.
-- NEVER name things as 'improved' or 'new' or 'enhanced', etc. Code naming should be evergreen. What is new today will be "old" someday.
+### Dashboard Development
+```bash
+# Navigate to dashboard
+cd dashboard/claude-analytics-dashboard
 
-# Getting help
+# Install/sync dependencies using uv
+uv sync
 
-- ALWAYS ask for clarification rather than making assumptions.
-- If you're having trouble with something, it's ok to stop and ask for help. Especially if it's something your human might be better at.
+# Run the analytics dashboard
+uv run python run_dashboard.py
 
-# Testing
+# Run tests (when implemented)
+uv run pytest
+```
 
-- Tests MUST cover the functionality being implemented.
-- NEVER ignore the output of the system or the tests - Logs and messages often contain CRITICAL information.
-- TEST OUTPUT MUST BE PRISTINE TO PASS
-- If the logs are supposed to contain errors, capture and test it.
-- NO EXCEPTIONS POLICY: Under no circumstances should you mark any test type as "not applicable". Every project, regardless of size or complexity, MUST have unit tests, integration tests, AND end-to-end tests. If you believe a test type doesn't apply, you need the human to say exactly "I AUTHORIZE YOU TO SKIP WRITING TESTS THIS TIME"
+### Hook Management
+```bash
+# Test hooks locally
+uv run python hooks/pre_tool_use.py
+uv run python hooks/post_tool_use.py
 
-## We practice TDD. That means:
+# View hook logs
+ls -la logs/
+```
 
-- Write tests before writing the implementation code
-- Only write enough code to make the failing test pass
-- Refactor code continuously while ensuring tests still pass
+## Architecture
 
-### TDD Implementation Process
+### Core Components
 
-- Write a failing test that defines a desired function or improvement
-- Run the test to confirm it fails as expected
-- Write minimal code to make the test pass
-- Run the test to confirm success
-- Refactor code to improve design while keeping tests green
-- Repeat the cycle for each new feature or bugfix
+1. **Hooks System** (`/hooks/`): Python-based lifecycle hooks that control Claude Code behavior
+   - `pre_tool_use.py`: Validates commands before execution
+   - `post_tool_use.py`: Logs tool usage and validates completion
+   - `user_prompt_submit.py`: Captures user interactions
+   - `session_start.py`: Initializes new sessions
+   - `notifications.py`: Handles AI notifications with optional alerts
+   - `stop.py` & `subagent_stop.py`: Manage response/task completion
 
-# Specific Technologies
+2. **Analytics Dashboard** (`/dashboard/claude-analytics-dashboard/`): FastAPI + Chart.js web application
+   - Backend: `backend/main.py` - FastAPI server with WebSocket support
+   - Frontend: `frontend/index.html` & `frontend/dashboard.js` - Interactive visualizations
+   - Data processing: Reads JSON logs from hooks, calculates metrics, provides real-time updates
 
-- @~/.claude/docs/python.md
-- @~/.claude/docs/source-control.md
-- @~/.claude/docs/using-uv.md
+3. **Custom Commands** (`/commands/`): Pre-written markdown templates for common workflows
+   - Planning: `plan.md`, `plan-tdd.md`, `plan-gh.md`
+   - GitHub: `gh-issue.md`, `pr-comments.md`
+   - Development: `tdd.md`, `epcc.md` (explore-plan-code-commit)
+   - Analysis: `security-review.md`, `analyze-logs.md`
 
-# UI Changes
+4. **Configuration**:
+   - `settings.json`: Hook configurations and tool permissions
+   - Global CLAUDE.md: User preferences and coding standards
+   - Project-specific overrides via local CLAUDE.md files
 
-- Whenever you make changes that would affect the UI, test it out with the puppeteer mcp
+### Data Flow
 
-# Code Quality
+1. User interacts with Claude Code
+2. Hooks intercept and log events to JSON files in `/logs/`
+3. Dashboard monitors log files using watchdog
+4. Real-time updates sent via WebSocket to connected browsers
+5. Visualizations update automatically with new data
 
-- Always run the tests that you create to verify that they work.
+## Development Workflow
+
+### For Dashboard Features
+1. Use TDD approach - write tests first in `dashboard/claude-analytics-dashboard/tests/`
+2. Implement features in appropriate backend/frontend files
+3. Test locally with `uv run python run_dashboard.py`
+4. Verify WebSocket updates work correctly
+5. Check responsive design on different screen sizes
+
+### For Hook Development
+1. Create/modify hook in `/hooks/` directory
+2. Add configuration to `settings.json`
+3. Test hook locally with sample input
+4. Verify logging works correctly
+5. Test integration with Claude Code
+
+### For Custom Commands
+1. Create markdown file in `/commands/`
+2. Use clear instructions and examples
+3. Test command availability with `/` prefix in Claude Code
+
+## Important Patterns
+
+- All Python development uses `uv` for package management (no pip/poetry)
+- Hook logs are JSON format in `/logs/` directory
+- Dashboard runs on port 8000 by default
+- WebSocket fallback to polling for compatibility
+- File monitoring uses watchdog for real-time updates
+
+## Testing Requirements
+
+Per the global CLAUDE.md requirements:
+- Practice TDD (Test-Driven Development)
+- Write failing tests first
+- Implement minimal code to pass
+- Refactor while keeping tests green
+- All projects must have unit, integration, and end-to-end tests
+
+## Security Considerations
+
+- Hooks execute with full user permissions
+- Pre-execution validation in `pre_tool_use.py`
+- Comprehensive logging for audit trails
+- Never store sensitive data in configuration files
+- Tool permissions configured in `settings.json`
+
+## Troubleshooting
+
+### Dashboard Issues
+- Check dependencies: `uv sync`
+- Verify Python 3.11+ installed
+- Check port 8000 availability
+- Verify log files exist and are valid JSON
+
+### Hook Issues
+- Check `settings.json` configuration
+- Verify hook scripts are executable
+- Review logs for error messages
+- Test hooks with sample input data
+
+### WebSocket Issues
+- Dashboard automatically falls back to polling
+- Check browser console for errors
+- Verify firewall settings allow WebSocket connections
