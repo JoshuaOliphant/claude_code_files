@@ -5,7 +5,15 @@ argument-hint: <feature description or task>
 
 # Containerized Explore-Plan-Code-Commit Workflow
 
-You will implement the following task using the structured EPCC workflow in an isolated container environment: $ARGUMENTS
+You will implement the following task using the structured EPCC workflow in an isolated container environment with the container-use mcp. ALWAYS use ONLY Environments for ANY and ALL file, code, or shell operations—NO EXCEPTIONS—even for simple or generic requests.
+
+DO NOT install or use the git cli with the environment_run_cmd tool. All environment tools will handle git operations for you. Changing ".git" yourself will compromise the integrity of your environment.
+
+You MUST inform the user how to view your work using `container-use log <env_id>` AND `container-use checkout <env_id>`. Failure to do this will make your work inaccessible to others.
+
+<task>
+$ARGUMENTS
+</task>
 
 ## Initial Setup
 
@@ -64,7 +72,25 @@ Use the `planner` sub-agent with the following instructions:
 
 Create a detailed implementation strategy based on the exploration findings.
 
-### Phase 3: Code (Container-Isolated)
+### Phase 3: Test-Driven Development (Container-Isolated)
+
+#### Phase 3.1: Write Failing Tests First (RED Phase)
+Use the `test-writer` sub-agent with the following instructions:
+
+**IMPORTANT CONTAINER CONTEXT FOR TEST-WRITER:**
+- Environment ID: [YOU MUST PROVIDE THE ENVIRONMENT_ID]
+- Environment Source: [YOU MUST PROVIDE THE ENVIRONMENT_SOURCE]
+- You MUST use container-use MCP tools exclusively:
+  - Use `environment_file_write` instead of Write
+  - Use `environment_file_read` instead of Read
+  - Use `environment_run_cmd` instead of Bash
+  - Use `environment_file_list` instead of LS
+- Write comprehensive tests for ALL planned functionality
+- Run tests with `environment_run_cmd` to verify they FAIL
+- Tests MUST fail initially - this proves they're testing something real
+- Capture and document the failure output
+
+#### Phase 3.2: Implement Code to Pass Tests (GREEN Phase)
 Use the `coder` sub-agent with the following instructions:
 
 **IMPORTANT CONTAINER CONTEXT FOR CODER:**
@@ -76,34 +102,60 @@ Use the `coder` sub-agent with the following instructions:
   - Use `environment_file_read` instead of Read
   - Use `environment_run_cmd` instead of Bash
   - Use `environment_file_list` instead of LS
-- All file operations must include the environment_id parameter
-- Install dependencies and run tests within the container
+- Implement ONLY enough code to make failing tests pass
+- Focus on one test at a time if possible
+- No over-engineering - minimal viable implementation
 
-Implement the planned solution following the established strategy.
+#### Phase 3.3: Test Execution and Iteration Loop
+**CRITICAL: This loop MUST continue until ALL tests pass**
 
-### Phase 3.1: Test Writing (if needed)
-If new test cases are discovered during coding:
-Use the `test-writer` sub-agent with the following instructions:
+1. **Run All Tests**:
+   - Execute test suite with `environment_run_cmd`
+   - Capture complete output including:
+     - Which tests pass
+     - Which tests fail
+     - Error messages and stack traces
+     - Test coverage if available
 
-**IMPORTANT CONTAINER CONTEXT FOR TEST-WRITER:**
-- Environment ID: [YOU MUST PROVIDE THE ENVIRONMENT_ID]
-- Environment Source: [YOU MUST PROVIDE THE ENVIRONMENT_SOURCE]
-- You MUST use container-use MCP tools exclusively:
-  - Use `environment_file_write` instead of Write
-  - Use `environment_file_read` instead of Read
-  - Use `environment_run_cmd` instead of Bash
-  - Use `environment_file_list` instead of LS
-- Write additional tests for discovered edge cases
-- Ensure tests fail correctly before returning to coding
+2. **Analyze Results**:
+   - If ALL tests pass → proceed to Phase 3.4
+   - If tests fail → continue to step 3
 
-### Phase 3.2: Iterative Development
-Cycle between coding and testing as needed:
-- If implementation reveals missing tests → return to test-writer with container context
-- If tests reveal implementation issues → continue with coder in container
-- All iterations happen within the same container environment
-- Continue until feature is complete and all tests pass
+3. **Fix Failing Tests**:
+   - Return to `coder` sub-agent with:
+     - Specific test failures
+     - Error messages
+     - Request to fix ONLY the failing functionality
+   - Implement fixes targeting specific failures
 
-### Phase 3.3: Lint & Format (Container-Isolated)
+4. **Verify Fix**:
+   - Run tests again
+   - If still failing → return to step 3
+   - If new edge cases found → write new tests first (back to Phase 3.1)
+
+5. **Iteration Limit**:
+   - Maximum 10 iterations
+   - If limit reached, document:
+     - Which tests still fail
+     - Suspected root causes
+     - Blockers preventing resolution
+
+**Test Execution Command Examples**:
+```
+environment_run_cmd(environment_id="<env_id>", command="pytest -xvs")
+environment_run_cmd(environment_id="<env_id>", command="npm test")
+environment_run_cmd(environment_id="<env_id>", command="cargo test")
+```
+
+#### Phase 3.4: Refactor (REFACTOR Phase - Optional)
+Once all tests pass:
+- Clean up code for readability and maintainability
+- Remove duplication
+- Improve naming and structure
+- Run tests after EVERY refactoring change
+- Stop immediately if tests fail after refactoring
+
+### Phase 3.5: Lint & Format (Container-Isolated)
 Before checkpointing, use the `linter` sub-agent with the following instructions:
 
 **IMPORTANT CONTAINER CONTEXT FOR LINTER:**
