@@ -9,6 +9,7 @@ The Claude Code SDK (Python and TypeScript) enables programmatic creation of AI 
 ## Core Concept
 
 Instead of manually analyzing logs and creating improvements, we use the Claude Code SDK to create agents that:
+
 1. Analyze your usage patterns from logs
 2. Generate improved commands and agents
 3. Test improvements automatically
@@ -461,21 +462,25 @@ async def generate_dashboard_insights():
 ## Benefits of SDK-Based Self-Improvement
 
 ### 1. Autonomous Evolution
+
 - Commands and agents improve without manual intervention
 - Continuous learning from usage patterns
 - Automatic deployment of proven improvements
 
 ### 2. Compound Intelligence
+
 - Each improvement makes future improvements better
 - Meta-learning: Claude learns how to improve Claude
 - Exponential rather than linear improvement
 
 ### 3. Personalized Optimization
+
 - Adapts to YOUR specific workflows
 - Learns YOUR coding style
 - Optimizes for YOUR projects
 
 ### 4. Zero-Overhead Improvement
+
 - Runs in background
 - No manual analysis required
 - Automatic testing and validation
@@ -483,11 +488,13 @@ async def generate_dashboard_insights():
 ## Getting Started
 
 ### Step 1: Install the SDK
+
 ```bash
 pip install claude-code-sdk
 ```
 
 ### Step 2: Create Your First Meta-Agent
+
 ```python
 # meta_agent.py
 from claude_code_sdk import query, ClaudeCodeOptions
@@ -509,6 +516,7 @@ asyncio.run(main())
 ```
 
 ### Step 3: Schedule Regular Improvements
+
 ```bash
 # Add to crontab
 0 2 * * * /usr/bin/python3 ~/.claude/meta_agent.py
@@ -517,6 +525,7 @@ asyncio.run(main())
 ## Advanced Techniques
 
 ### 1. Multi-Agent Collaboration
+
 ```python
 async def multi_agent_improvement():
     """Multiple specialized agents working together"""
@@ -543,6 +552,7 @@ async def multi_agent_improvement():
 ```
 
 ### 2. Recursive Self-Improvement
+
 ```python
 async def recursive_improvement():
     """Claude improves its own improvement process"""
