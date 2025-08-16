@@ -57,10 +57,6 @@
           {
             "type": "command",
             "command": "uv run /Users/joshuaoliphant/.claude/hooks/stop.py --chat"
-          },
-          {
-            "type": "command",
-            "command": "uv run /Users/joshuaoliphant/.claude/hooks/session_improvement.py"
           }
         ]
       }
