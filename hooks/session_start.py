@@ -19,7 +19,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 try:
     from utils.project_init import (
         get_project_type,
-        is_claude_initialized
+        is_project_initialized
     )
     HAS_PROJECT_INIT = True
 except ImportError:
@@ -129,13 +129,34 @@ def load_development_context(source):
         project_root = os.getcwd()
         project_type = get_project_type(project_root)
         
-        if not is_claude_initialized(project_root):
+        if not is_project_initialized(project_root):
             context_parts.append(f"\n📍 Project detected: {project_type}")
             context_parts.append("📂 Project knowledge structure not initialized")
             context_parts.append("💡 Run /project-init to enable:")
             context_parts.append("  - Persistent session contexts")
             context_parts.append("  - Knowledge accumulation")
             context_parts.append("  - Agent output management")
+            
+            # Announce via TTS if requested
+            if os.getenv('CLAUDE_CODE_ANNOUNCE_INIT'):
+                try:
+                    script_dir = Path(__file__).parent
+                    # Try to find best TTS script available
+                    tts_script = None
+                    if os.getenv('ELEVENLABS_API_KEY'):
+                        tts_script = script_dir / "utils" / "tts" / "elevenlabs_tts.py"
+                    elif tts_script is None or not tts_script.exists():
+                        tts_script = script_dir / "utils" / "tts" / "pyttsx3_tts.py"
+                    
+                    if tts_script and tts_script.exists():
+                        message = "Project knowledge structure not initialized. Run slash project init to enable context persistence."
+                        subprocess.run(
+                            ["uv", "run", str(tts_script), message],
+                            capture_output=True,
+                            timeout=5
+                        )
+                except Exception:
+                    pass
         else:
             # Load latest active session if initialized
             active_sessions = Path(project_root) / ".claude" / "sessions" / "active"
