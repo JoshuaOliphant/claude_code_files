@@ -7,3 +7,7 @@ todos
 shell-snapshots
 .mcp.json
 logs/
+
+# Python bytecode
+__pycache__/
+*.pyc
