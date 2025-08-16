@@ -14,6 +14,17 @@ import subprocess
 from pathlib import Path
 from datetime import datetime
 
+# Import project initialization utilities
+sys.path.insert(0, str(Path(__file__).parent))
+try:
+    from utils.project_init import (
+        get_project_type,
+        is_claude_initialized
+    )
+    HAS_PROJECT_INIT = True
+except ImportError:
+    HAS_PROJECT_INIT = False
+
 try:
     from dotenv import load_dotenv
     load_dotenv()
@@ -113,8 +124,40 @@ def load_development_context(source):
         if changes > 0:
             context_parts.append(f"Uncommitted changes: {changes} files")
     
+    # Check project initialization status if utilities are available
+    if HAS_PROJECT_INIT:
+        project_root = os.getcwd()
+        project_type = get_project_type(project_root)
+        
+        if not is_claude_initialized(project_root):
+            context_parts.append(f"\n📍 Project detected: {project_type}")
+            context_parts.append("📂 Project knowledge structure not initialized")
+            context_parts.append("💡 Run /project-init to enable:")
+            context_parts.append("  - Persistent session contexts")
+            context_parts.append("  - Knowledge accumulation")
+            context_parts.append("  - Agent output management")
+        else:
+            # Load latest active session if initialized
+            active_sessions = Path(project_root) / ".claude" / "sessions" / "active"
+            if active_sessions.exists():
+                sessions = list(active_sessions.glob("session_*.md"))
+                if sessions:
+                    latest_session = max(sessions, key=lambda p: p.stat().st_mtime)
+                    context_parts.append(f"\n📂 Active session: {latest_session.name}")
+                    
+                    # Load session content summary (first 500 chars)
+                    try:
+                        with open(latest_session, 'r') as f:
+                            session_content = f.read(500).strip()
+                            if session_content:
+                                context_parts.append("--- Session Context Preview ---")
+                                context_parts.append(session_content)
+                    except Exception:
+                        pass
+    
     # Load project-specific context files if they exist
     context_files = [
+        ".claude/PROJECT_CLAUDE.md",  # New marker file
         ".claude/CONTEXT.md",
         ".claude/TODO.md",
         "TODO.md",
