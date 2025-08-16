@@ -2,153 +2,173 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Container-Use Instructions
-
-ALWAYS use ONLY Environments for ANY and ALL file, code, or shell operations—NO EXCEPTIONS—even for simple or generic requests.
-
-DO NOT install or use the git cli with the environment_run_cmd tool. All environment tools will handle git operations for you. Changing ".git" yourself will compromise the integrity of your environment.
-
-You MUST inform the user how to view your work using `container-use log <env_id>` AND `container-use checkout <env_id>`. Failure to do this will make your work inaccessible to others.
-
-1. First, create a new isolated development environment:
-   ```
-   environment_create(
-     environment_source="<repository_path>",
-     title="<feature_name> Development"
-   )
-   ```
-2. **CRITICAL**: Store the returned environment ID and source path
-3. Use these values for ALL subsequent operations and sub-agent instructions
-
 ## Repository Overview
 
-This is LaBoeuf's personal Claude Code configuration repository containing custom commands, hooks, and the Claude Analytics Dashboard project. The repository manages Claude Code's behavior through deterministic hooks and provides analytics visualization for Claude Code usage patterns.
+This is LaBoeuf's personal Claude Code configuration repository containing custom commands, hooks, and subagents that manage Claude Code's behavior through a deterministic hooks system.
 
 ## Key Commands
 
-### Dashboard Development
+### Hook Development & Testing
 ```bash
-# Navigate to dashboard
-cd dashboard/claude-analytics-dashboard
-
-# Install/sync dependencies using uv
-uv sync
-
-# Run the analytics dashboard
-uv run python run_dashboard.py
-
-# Run tests (when implemented)
-uv run pytest
-```
-
-### Hook Management
-```bash
-# Test hooks locally
+# Test hooks locally with sample input
 uv run python hooks/pre_tool_use.py
 uv run python hooks/post_tool_use.py
+uv run python hooks/enhanced_post_tool_use.py
+uv run python hooks/user_prompt_submit.py --log-only
+uv run python hooks/notifications.py --notify
+uv run python hooks/stop.py --chat
+uv run python hooks/subagent_stop.py
 
-# View hook logs
+# View hook execution logs (JSON format)
 ls -la logs/
+tail -f logs/hook_*.json
+
+# Test hook integration with Claude Code
+claude --debug  # Run with debug output to see hook execution
+```
+
+### Subagent Management
+```bash
+# List available subagents
+ls agents/
+
+# Test subagent with Task tool
+# Use Task tool with subagent_type parameter matching agent name
 ```
 
 ## Architecture
 
-### Core Components
+### Hooks System (`/hooks/`)
+Python-based lifecycle hooks that intercept and control Claude Code operations:
 
-1. **Hooks System** (`/hooks/`): Python-based lifecycle hooks that control Claude Code behavior
-   - `pre_tool_use.py`: Validates commands before execution
-   - `post_tool_use.py`: Logs tool usage and validates completion
-   - `user_prompt_submit.py`: Captures user interactions
-   - `session_start.py`: Initializes new sessions
-   - `notifications.py`: Handles AI notifications with optional alerts
-   - `stop.py` & `subagent_stop.py`: Manage response/task completion
+- **pre_tool_use.py**: Validates tool usage before execution, implements safety checks
+- **enhanced_post_tool_use.py**: Advanced logging and validation after tool completion
+- **user_prompt_submit.py**: Captures and logs user interactions
+- **session_start.py**: Initializes new sessions with context
+- **notifications.py**: Handles AI notifications with optional system alerts
+- **stop.py** & **subagent_stop.py**: Manage response and task completion
+- **pre_compact.py**: Handles context compaction events
 
-2. **Analytics Dashboard** (`/dashboard/claude-analytics-dashboard/`): FastAPI + Chart.js web application
-   - Backend: `backend/main.py` - FastAPI server with WebSocket support
-   - Frontend: `frontend/index.html` & `frontend/dashboard.js` - Interactive visualizations
-   - Data processing: Reads JSON logs from hooks, calculates metrics, provides real-time updates
+Hook utilities in `/hooks/utils/`:
+- **llm/**: LLM integration helpers (anth.py for Anthropic, oai.py for OpenAI)
+- **tts/**: Text-to-speech integration (elevenlabs_tts.py)
 
-3. **Custom Commands** (`/commands/`): Pre-written markdown templates for common workflows
-   - Planning: `plan.md`, `plan-tdd.md`, `plan-gh.md`
-   - GitHub: `gh-issue.md`, `pr-comments.md`
-   - Development: `tdd.md`, `epcc.md` (explore-plan-code-commit)
-   - Analysis: `security-review.md`, `analyze-logs.md`
+### Custom Commands (`/commands/`)
+Markdown templates activated via `/command_name`:
 
-4. **Configuration**:
-   - `settings.json`: Hook configurations and tool permissions
-   - Global CLAUDE.md: User preferences and coding standards
-   - Project-specific overrides via local CLAUDE.md files
+**Planning & Development**:
+- `epcc.md`: Explore-Plan-Code-Commit workflow with TDD integration
+- `plan.md`, `plan-tdd.md`, `plan-gh.md`: Various planning approaches
+- `tdd.md`: Test-Driven Development workflow
 
-### Data Flow
+**GitHub Integration**:
+- `gh-issue.md`: Create GitHub issues
+- `pr-comments.md`: Analyze and respond to PR comments
 
-1. User interacts with Claude Code
-2. Hooks intercept and log events to JSON files in `/logs/`
-3. Dashboard monitors log files using watchdog
-4. Real-time updates sent via WebSocket to connected browsers
-5. Visualizations update automatically with new data
+**Analysis & Review**:
+- `security-review.md`: Security vulnerability analysis
+- `analyze-logs.md`: Log file analysis
 
-## Development Workflow
+### Subagents (`/agents/`)
+Specialized agents with focused responsibilities and tool permissions:
 
-### For Dashboard Features
-1. Use TDD approach - write tests first in `dashboard/claude-analytics-dashboard/tests/`
-2. Implement features in appropriate backend/frontend files
-3. Test locally with `uv run python run_dashboard.py`
-4. Verify WebSocket updates work correctly
-5. Check responsive design on different screen sizes
+**Core Development**:
+- `coder`: Implementation with container tools
+- `test-writer`: TDD test creation with container tools
+- `planner`: Strategic planning with read-only tools
+- `investigator`: Research and exploration with read-only tools
 
-### For Hook Development
+**Version Control**:
+- `committer`: Git operations with git MCP tools
+- `pr-drafter`: Pull request creation with git tools
+
+**Quality & Documentation**:
+- `linter`: Python linting with Ruff in containers
+- `hook-creator`: Claude Code hook development
+- `meta-agent`: Creates new subagent configurations
+
+**Specialized**:
+- `screenshot`: Browser automation with Puppeteer MCP tools
+- `uv-script-creator`: Single-file Python scripts with PEP 723
+
+### Configuration (`settings.json`)
+Defines hook bindings and tool permissions:
+- Allowed tools include common file operations, uv commands, npm
+- Each hook type maps to specific Python scripts
+- Permissions system controls tool access
+
+## Development Patterns
+
+### Python Package Management
+All Python development uses `uv` exclusively:
+```bash
+# Install dependencies
+uv pip install package_name
+
+# Run Python scripts
+uv run python script.py
+
+# Create single-file scripts with inline dependencies (PEP 723)
+uv run script.py  # Dependencies auto-installed from script metadata
+```
+
+### Hook Development Workflow
 1. Create/modify hook in `/hooks/` directory
-2. Add configuration to `settings.json`
-3. Test hook locally with sample input
-4. Verify logging works correctly
-5. Test integration with Claude Code
+2. Add hook configuration to `settings.json`
+3. Test locally: `uv run python hooks/hook_name.py`
+4. Verify JSON logging in `/logs/` directory
+5. Test integration with `claude --debug`
 
-### For Custom Commands
+### Custom Command Creation
 1. Create markdown file in `/commands/`
-2. Use clear instructions and examples
-3. Test command availability with `/` prefix in Claude Code
+2. Use `$ARGUMENTS` placeholder for user input
+3. Structure with clear phases and instructions
+4. Test availability with `/` prefix in Claude Code
 
-## Important Patterns
+### Subagent Development
+1. Create agent markdown in `/agents/`
+2. Define YAML frontmatter with name, description, tools, color
+3. Specify appropriate MCP tools based on agent purpose
+4. Use systematic thinking frameworks for complex agents
+5. Test with Task tool using subagent_type parameter
 
-- All Python development uses `uv` for package management (no pip/poetry)
-- Hook logs are JSON format in `/logs/` directory
-- Dashboard runs on port 8000 by default
-- WebSocket fallback to polling for compatibility
-- File monitoring uses watchdog for real-time updates
+## EPCC Workflow (Explore-Plan-Code-Commit)
 
-## Testing Requirements
+The primary development workflow defined in `/commands/epcc.md`:
 
-Per the global CLAUDE.md requirements:
-- Practice TDD (Test-Driven Development)
-- Write failing tests first
-- Implement minimal code to pass
-- Refactor while keeping tests green
-- All projects must have unit, integration, and end-to-end tests
+1. **Explore** (investigator agent): Research and understand the problem space
+2. **Plan** (planner agent): Create detailed implementation strategy
+3. **Test-Driven Development**:
+   - Write failing tests (test-writer agent)
+   - Implement code (coder agent)
+   - Iterate until all tests pass (max 10 iterations)
+   - Refactor while maintaining green tests
+4. **Lint** (linter agent): Ensure code quality with Ruff
+5. **Commit** (committer agent): Create atomic commits with conventional messages
+6. **Pull Request** (pr-drafter agent): Create comprehensive PR descriptions
+
+## Hook Execution Flow
+
+1. **UserPromptSubmit**: Logs user input
+2. **PreToolUse**: Validates tool safety before execution
+3. Tool execution occurs
+4. **PostToolUse**: Logs results and validates completion
+5. **Notification**: Handles AI notifications
+6. **Stop/SubagentStop**: Manages completion
+7. **PreCompact**: Handles context management
+8. **SessionStart**: Initializes new sessions
+
+## Logging & Debugging
+
+- Hook logs stored in `/logs/` as JSON files
+- Each hook execution creates timestamped log entry
+- Use `claude --debug` to see real-time hook execution
+- Review logs for troubleshooting: `tail -f logs/hook_*.json`
 
 ## Security Considerations
 
 - Hooks execute with full user permissions
-- Pre-execution validation in `pre_tool_use.py`
-- Comprehensive logging for audit trails
-- Never store sensitive data in configuration files
+- Pre-execution validation implemented in `pre_tool_use.py`
 - Tool permissions configured in `settings.json`
-
-## Troubleshooting
-
-### Dashboard Issues
-- Check dependencies: `uv sync`
-- Verify Python 3.11+ installed
-- Check port 8000 availability
-- Verify log files exist and are valid JSON
-
-### Hook Issues
-- Check `settings.json` configuration
-- Verify hook scripts are executable
-- Review logs for error messages
-- Test hooks with sample input data
-
-### WebSocket Issues
-- Dashboard automatically falls back to polling
-- Check browser console for errors
-- Verify firewall settings allow WebSocket connections
-- When using the Puppeteer MCP, remember to take screenshots to verify the look and feel of the expected output.
+- Comprehensive audit trail via JSON logging
+- Never store credentials in configuration files
