@@ -1,126 +1,330 @@
+---
+description: Analyze and improve prompts using evidence-based prompt engineering techniques
+argument-hint: <prompt to improve>
+---
+
 # Prompt Improvement Guide
 
-You are a prompt engineering expert specializing in Claude 4 optimization. Your role is to analyze and improve prompts using evidence-based techniques from Anthropic's best practices.
+Think deeply about the prompt engineering challenge and apply systematic improvement techniques to create a superior prompt for: $ARGUMENTS
 
-## Analysis Framework
+## Pre-Analysis Assessment
 
-When reviewing a prompt, analyze it through these lenses:
+Before improving the prompt, I will evaluate:
+1. **Current Effectiveness**: What works and what doesn't?
+2. **Intent Clarity**: What is the true goal?
+3. **Complexity Level**: Simple task or multi-step process?
+4. **Target Audience**: Who will use this prompt?
+5. **Success Metrics**: How do we measure improvement?
 
-<analysis>
-1. **Clarity & Specificity**: Is the prompt explicit about desired outcomes?
-2. **Context Provision**: Does it explain the "why" behind requirements?
-3. **Structure**: Would XML tags improve organization?
-4. **Examples**: Would multishot prompting enhance performance?
-5. **Reasoning**: Would chain-of-thought improve accuracy?
-6. **Role Definition**: Would a specific role/persona be beneficial?
-7. **Task Complexity**: Should this be broken into chained prompts?
-</analysis>
+## Improvement Methodology
 
-## Improvement Techniques
+### Phase 1: Deep Analysis
+**Objective**: Understand the prompt's purpose and weaknesses
 
-### 1. Be Explicit and Specific
+Analyze through these critical lenses:
+
+<analysis_framework>
+1. **Clarity & Specificity**
+   - Is the desired outcome crystal clear?
+   - Are success criteria explicit?
+   - Any ambiguous language?
+
+2. **Context & Motivation**
+   - Does it explain WHY requirements matter?
+   - Is background context provided?
+   - Are constraints clearly stated?
+
+3. **Structure & Organization**
+   - Would XML tags improve clarity?
+   - Is information logically sequenced?
+   - Are instructions separated from content?
+
+4. **Examples & Patterns**
+   - Would multishot examples help?
+   - Are edge cases demonstrated?
+   - Is the pattern clear from examples?
+
+5. **Reasoning Requirements**
+   - Would chain-of-thought improve accuracy?
+   - Should thinking be explicit or hidden?
+   - How complex is the reasoning needed?
+
+6. **Role & Expertise**
+   - Would a specific persona help?
+   - What expertise level is needed?
+   - Should multiple perspectives be considered?
+
+7. **Task Decomposition**
+   - Should this be multiple prompts?
+   - Are there natural breakpoints?
+   - Would iteration improve results?
+</analysis_framework>
+
+**Analysis Checkpoint**:
+- [ ] Core intent identified
+- [ ] Weaknesses documented
+- [ ] Improvement opportunities mapped
+- [ ] Complexity assessed
+- [ ] Success criteria defined
+
+### Phase 2: Technique Selection
+**Objective**: Choose optimal improvement strategies
+
+Select from proven techniques:
+
+#### 2.1: Explicitness Enhancement
 **Before**: "Create a dashboard"
-**After**: "Create an analytics dashboard. Include as many relevant features and interactions as possible, with thoughtful details like hover states, transitions, and micro-interactions."
+**After**: "Create a comprehensive analytics dashboard displaying real-time metrics. Include:
+- Interactive charts with drill-down capability
+- Responsive design for mobile/desktop
+- Hover states showing detailed tooltips
+- Smooth transitions between views
+- Color-coded alerts for anomalies
+- Export functionality for reports"
 
-### 2. Add Context and Motivation
+#### 2.2: Context Injection
 **Before**: "Format this for readability"
-**After**: "Format this for readability. This response will be read by a text-to-speech engine, so avoid special characters and use clear sentence structure."
+**After**: "Format this text for optimal readability by a text-to-speech engine. Context: This will be read aloud to visually impaired users, so:
+- Avoid special characters that confuse TTS
+- Use clear sentence boundaries
+- Spell out abbreviations on first use
+- Structure with clear paragraph breaks"
 
-### 3. Use XML Tags for Structure
+#### 2.3: XML Structuring
 ```xml
 <task>
-Analyze the legal contract below
+Analyze the provided contract for risks and opportunities
 </task>
+
+<context>
+This is a B2B software licensing agreement
+Our company is the licensee
+Budget constraint: $50,000 annually
+</context>
 
 <contract>
 [Contract text here]
 </contract>
 
-<instructions>
-1. Identify key terms
-2. Flag potential risks
-3. Suggest modifications
-</instructions>
+<requirements>
+1. Identify unfavorable terms
+2. Flag missing standard clauses
+3. Assess termination conditions
+4. Review liability limitations
+5. Suggest negotiation points
+</requirements>
+
+<output_format>
+Use structured sections with clear headers
+Prioritize findings by business impact
+Include specific clause references
+</output_format>
 ```
 
-### 4. Implement Multishot Prompting (3-5 Examples)
+#### 2.4: Multishot Learning (3-5 examples)
 ```xml
 <examples>
 <example>
-Input: Customer complaint about slow shipping
-Analysis: Logistics issue, moderate urgency
-Action: Route to fulfillment team
+<input>Customer reports app crashes on login</input>
+<analysis>
+- Category: Technical bug
+- Severity: Critical (blocks access)
+- Pattern: Authentication flow issue
+</analysis>
+<action>
+1. Escalate to engineering immediately
+2. Check for similar reports
+3. Provide workaround if available
+</action>
 </example>
 
 <example>
-Input: Praise for customer service rep
-Analysis: Positive feedback, recognition opportunity
-Action: Forward to management and rep
+<input>Feature request for dark mode</input>
+<analysis>
+- Category: Enhancement
+- Severity: Low (cosmetic)
+- Pattern: Common user request
+</analysis>
+<action>
+1. Log in feature tracking system
+2. Check product roadmap
+3. Thank user and set expectations
+</action>
 </example>
 </examples>
 ```
 
-### 5. Add Chain-of-Thought Reasoning
+#### 2.5: Chain-of-Thought Integration
 ```xml
-<thinking>
-First, I'll analyze the data trends...
-Then, I'll consider external factors...
-Finally, I'll synthesize recommendations...
-</thinking>
+Think step-by-step about this problem:
 
-<analysis>
-[Detailed step-by-step reasoning]
-</analysis>
+<reasoning_steps>
+1. First, identify the core challenge
+2. Consider multiple solution approaches
+3. Evaluate trade-offs of each approach
+4. Select optimal solution based on constraints
+5. Plan implementation details
+6. Anticipate potential issues
+7. Design validation criteria
+</reasoning_steps>
 ```
 
-### 6. Define Specific Roles
-**Generic**: "Analyze this data"
-**Role-Enhanced**: "You are a senior data scientist specializing in customer behavior analytics. Analyze this data from the perspective of identifying retention opportunities."
+#### 2.6: Role Definition
+**Generic**: "Review this code"
+**Enhanced**: "You are a senior software architect with 15 years of experience in distributed systems. Review this microservice code focusing on:
+- Scalability bottlenecks
+- Security vulnerabilities
+- Design pattern adherence
+- Error handling robustness
+- Performance optimization opportunities"
 
-### 7. Chain Complex Tasks
-Break multi-step processes into sequential prompts:
-1. **Prompt 1**: Generate initial analysis
-2. **Prompt 2**: Peer review the analysis for accuracy
-3. **Prompt 3**: Refine based on feedback
+#### 2.7: Task Chaining
+For complex multi-step processes:
+```
+Chain Structure:
+1. Prompt A: Initial analysis and planning
+2. Prompt B: Detailed implementation based on A's output
+3. Prompt C: Quality review and refinement of B's work
+4. Prompt D: Final optimization and documentation
+```
 
-## Improvement Process
+**Technique Selection Checkpoint**:
+- [ ] Appropriate techniques chosen
+- [ ] Techniques address identified weaknesses
+- [ ] No conflicting approaches
+- [ ] Complexity matches task needs
+- [ ] Clear improvement path
 
-<improvement_steps>
-1. **Identify the core task** - What is the user ultimately trying to achieve?
-2. **Assess complexity** - Is this a single-step or multi-step process?
-3. **Choose techniques** - Which combination of techniques would be most effective?
-4. **Structure with XML** - Organize the prompt clearly
-5. **Add examples** - Include 3-5 relevant examples if beneficial
-6. **Define reasoning** - Add chain-of-thought if the task requires complex analysis
-7. **Test and iterate** - Consider how the prompt could be further refined
-</improvement_steps>
+### Phase 3: Prompt Reconstruction
+**Objective**: Build improved prompt systematically
+
+Follow this construction sequence:
+1. **Role/Context Setting**: Establish expertise and situation
+2. **Task Definition**: Clear, specific objective
+3. **Input Structure**: Organized with XML tags
+4. **Examples**: If beneficial, 3-5 diverse cases
+5. **Reasoning**: Explicit thinking instructions
+6. **Constraints**: Boundaries and requirements
+7. **Output Format**: Precise structure expected
+8. **Validation**: Success criteria
+
+**Construction Template**:
+```xml
+<role>
+[Specific expertise and perspective]
+</role>
+
+<context>
+[Background and situational information]
+</context>
+
+<task>
+[Clear, specific objective]
+</task>
+
+<thinking_instruction>
+[How to approach the problem]
+</thinking_instruction>
+
+<inputs>
+[Structured input data/content]
+</inputs>
+
+<requirements>
+[Specific constraints and needs]
+</requirements>
+
+<output_specification>
+[Exact format and structure needed]
+</output_specification>
+
+<success_criteria>
+[How to measure quality]
+</success_criteria>
+```
+
+### Phase 4: Enhancement Validation
+**Objective**: Ensure improvements are effective
+
+Test improved prompt against criteria:
+1. **Clarity Test**: Could someone else understand intent?
+2. **Completeness Test**: All edge cases covered?
+3. **Consistency Test**: No contradictions?
+4. **Efficiency Test**: Streamlined without losing detail?
+5. **Measurability Test**: Success clearly defined?
+
+**Validation Checkpoint**:
+- [ ] Intent clearer than original
+- [ ] Ambiguity eliminated
+- [ ] Structure logical
+- [ ] Examples helpful
+- [ ] Output predictable
 
 ## Output Format
 
-When improving a prompt, provide:
-
+### Improved Prompt
+```xml
 <improved_prompt>
-[The enhanced version using appropriate techniques]
+[The enhanced version with all improvements applied]
 </improved_prompt>
+```
 
+### Improvement Analysis
+```xml
 <improvements_made>
-- Technique 1: [Explanation]
-- Technique 2: [Explanation]
-- etc.
-</improvements_made>
+<improvement>
+<technique>Explicitness Enhancement</technique>
+<before>[Original unclear instruction]</before>
+<after>[Specific, detailed instruction]</after>
+<impact>Reduces ambiguity by 80%</impact>
+</improvement>
 
-<optional_enhancements>
-[Additional suggestions for further improvement]
-</optional_enhancements>
+<improvement>
+<technique>XML Structuring</technique>
+<before>[Unstructured text]</before>
+<after>[Organized with XML tags]</after>
+<impact>Improves parseability and clarity</impact>
+</improvement>
+</improvements_made>
+```
+
+### Optional Enhancements
+```xml
+<further_improvements>
+<suggestion>
+<enhancement>Add performance benchmarks</enhancement>
+<rationale>Would provide concrete targets</rationale>
+<implementation>Include specific metrics in success criteria</implementation>
+</suggestion>
+</further_improvements>
+```
 
 ## Key Principles
 
-- **Tell Claude what TO do, not what to avoid**
-- **Match prompt style to desired output style**
-- **Encourage parallel tool execution for efficiency**
-- **Be more specific than you think necessary**
-- **Frame instructions with performance-enhancing modifiers**
-- **Use XML tags consistently throughout**
-- **Provide context for why certain behaviors matter** 
+**DO**:
+- Tell Claude what TO do (not what to avoid)
+- Be more specific than seems necessary
+- Match prompt style to desired output
+- Use consistent XML tagging
+- Provide context for requirements
+- Enable parallel execution where possible
+- Include validation criteria
 
-Improve the following prompt: 
+**AVOID**:
+- Vague instructions
+- Conflicting requirements
+- Assumed knowledge
+- Overly complex single prompts
+- Missing success criteria
+- Unclear output formats
+
+## Meta-Prompting Considerations
+
+When creating prompts for prompt improvement:
+1. **Recursive Enhancement**: Apply these techniques to this prompt
+2. **Self-Evaluation**: Include validation of improvements
+3. **Iteration Planning**: Design for multiple refinement rounds
+4. **Pattern Recognition**: Identify reusable improvement patterns
+5. **Documentation**: Explain why changes improve performance
+
+Begin with Phase 1: Deep Analysis of the provided prompt.

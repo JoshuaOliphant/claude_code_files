@@ -5,180 +5,288 @@ argument-hint: <spec file path>
 
 # Plan TDD Implementation
 
-Create a comprehensive Test-Driven Development plan for the specification in: $ARGUMENTS
+Think systematically about the specification and create a comprehensive Test-Driven Development plan that decomposes the project into testable, incremental tasks for: $ARGUMENTS
 
-## Workflow Overview
+## Pre-Planning Analysis
 
-### Phase 1: Analyze Specification
+Before creating the plan, I will analyze:
+1. **Specification Completeness**: Are all requirements clear and testable?
+2. **Technical Complexity**: What architectural patterns are needed?
+3. **Risk Assessment**: What could block or complicate implementation?
+4. **Testing Strategy**: How can we ensure comprehensive test coverage?
+5. **Decomposition Approach**: How to break this into right-sized chunks?
+
+## Planning Execution Phases
+
+### Phase 1: Specification Deep Dive
+**Objective**: Extract and validate all requirements
+
 Use the `investigator` sub-agent to:
-- Read and thoroughly understand the specification file
-- Identify all functional requirements, constraints, and edge cases
-- Research any unfamiliar concepts or technologies mentioned
-- Note dependencies and integration points
+- Read specification file thoroughly
+- Extract functional and non-functional requirements
+- Identify ambiguities or gaps
+- Research unfamiliar technologies
+- Map dependencies and constraints
 
-### Phase 2: Create High-Level Architecture
+**Analysis Questions**:
+- What are the core features that must work?
+- What are the edge cases and error conditions?
+- What external systems does this integrate with?
+- What performance requirements exist?
+- What security considerations apply?
+
+**Specification Checkpoint**:
+- [ ] All requirements documented
+- [ ] Ambiguities clarified or noted
+- [ ] Technologies researched
+- [ ] Constraints identified
+- [ ] Success criteria defined
+
+### Phase 2: Architecture Design
+**Objective**: Create robust, testable architecture
+
 Use the `planner` sub-agent to:
-- Design the overall system architecture
-- Identify major components and their relationships
-- Define clear boundaries between modules
+- Design system architecture with clear boundaries
+- Identify components and their responsibilities
+- Define interfaces and contracts
+- Plan data flow and state management
 - Consider scalability and maintainability
 
-### Phase 3: Break Down into Issues
-Transform the plan into GitHub issue-sized tasks:
-- Each task should be sized by complexity, not time
-- Each task should have clear acceptance criteria
-- Tasks should build incrementally (no orphaned code)
-- Earlier tasks create foundation for later ones
-- Include both implementation and testing in each task
+**Architecture Principles**:
+- Separation of concerns
+- Dependency injection for testability
+- Interface-based design
+- Single responsibility principle
+- Minimal coupling, high cohesion
 
-### Phase 4: Create TDD Prompts
-For each task, create a complete AI agent prompt that includes:
-1. **Context**: What was built in previous tasks
-2. **Objective**: What this task accomplishes
-3. **Test Requirements**: Specific tests to write first
-4. **Implementation Hints**: Approach without giving away the solution
-5. **Integration**: How to connect with existing code
+**Architecture Checkpoint**:
+- [ ] Components clearly defined
+- [ ] Interfaces documented
+- [ ] Data flow mapped
+- [ ] Dependencies minimized
+- [ ] Testability ensured
 
-Each prompt should be formatted as a standalone instruction that can be given to an AI agent, wrapped in markdown code blocks tagged as `text`. The prompts should:
-- Be self-contained with all necessary context
-- Build incrementally on previous prompts
-- Include specific TDD instructions (write tests first, then implementation)
-- End with integration steps to connect to existing code
-- Avoid orphaned code that isn't wired into the system
+### Phase 3: Task Decomposition
+**Objective**: Break down into optimal work units
 
-### Phase 5: Generate Deliverables
-Create the following files:
-- `plan.md`: Complete implementation plan with architecture, task breakdown, and all AI prompts
-- `todo.md`: Task tracking with status and dependencies
-- Each prompt in `plan.md` should be clearly separated and tagged for easy extraction
+Transform architecture into GitHub issues:
 
-## Task Sizing Guidelines
+**Decomposition Strategy**:
+1. **Foundation First**: Start with core infrastructure
+2. **Vertical Slices**: Each task delivers working functionality
+3. **Incremental Value**: Each task adds measurable progress
+4. **Test Coverage**: Every task includes its tests
+5. **No Orphans**: All code connects to the system
 
-Each task should be:
-- **Small enough to**: Complete in one focused session, test thoroughly, review easily
-- **Large enough to**: Make meaningful progress, be worth tracking as an issue
-- **Self-contained**: Has clear inputs/outputs and can be tested independently
-- **Incremental**: Builds on previous work without large complexity jumps
+**Task Sizing Criteria**:
+- **Too Small**: If it takes longer to describe than implement
+- **Too Large**: If it has multiple unrelated changes
+- **Just Right**: Single responsibility, clear testing boundary
 
-## Effort Estimation Metrics
-
-Instead of time estimates, use these AI-friendly metrics:
-
-### Complexity Points (1-5 scale)
-- **1**: Single-file change, clear requirements
-- **2**: Multi-file changes, straightforward logic
-- **3**: New component with moderate integration
-- **4**: Complex architecture, multiple system interactions
-- **5**: Research-heavy, experimental approach
-
-### AI Rounds
-Estimated interaction cycles needed:
-- Count prompt → implementation → refinement cycles
-- More complex tasks require more iterations
-
-### Test Coverage Units (TCU)
-Count distinct behaviors to verify:
-- Each unit represents a specific test scenario
-- More predictable than time estimates
-- Focuses on completeness rather than duration
-
-## Example Task Structure
-
+**Task Structure Template**:
 ```markdown
-## Task 3: Implement User Authentication Service
+## Task N: [Descriptive Title]
 
-**Dependencies**: Tasks 1-2 (Database models, Basic API setup)
+**Dependencies**: [Previous tasks required]
+**Complexity**: [1-5 scale]
+**Test Units**: [Number of behaviors to test]
 
 **Acceptance Criteria**:
-- [ ] JWT token generation and validation
-- [ ] Password hashing with bcrypt
-- [ ] Login endpoint returns valid token
-- [ ] Protected routes require valid token
+- [ ] Specific, measurable outcome
+- [ ] Test coverage requirement
+- [ ] Integration point verified
+- [ ] Documentation updated
 
 **TDD Approach**:
-1. Write tests for token generation/validation
-2. Write tests for password hashing
-3. Write integration tests for login flow
-4. Implement minimal code to pass tests
+1. Write failing test for [behavior]
+2. Implement minimal solution
+3. Refactor if needed
+4. Integrate with existing code
+```
 
-**Effort Estimates**:
-- **Complexity**: 2/5 (straightforward auth logic)
-- **AI Rounds**: ~3 (tests → implementation → integration)
-- **Test Coverage**: 4 units (token, hash, login, protected routes)
+**Decomposition Checkpoint**:
+- [ ] Tasks properly sized
+- [ ] Dependencies mapped
+- [ ] No circular dependencies
+- [ ] Progressive complexity
+- [ ] Complete coverage
 
-### AI Agent Prompt for Task 3:
+### Phase 4: TDD Prompt Generation
+**Objective**: Create self-contained implementation instructions
 
+For each task, generate AI-ready prompts:
+
+**Prompt Components**:
+1. **Context Setting**: What exists from previous tasks
+2. **Clear Objective**: What this task accomplishes
+3. **Test Requirements**: Specific tests to write FIRST
+4. **Implementation Hints**: Approach without spoiling solution
+5. **Integration Steps**: How to connect with existing code
+6. **Validation Criteria**: How to verify completion
+
+**Prompt Quality Rules**:
+- Self-contained with all context
+- Explicit about test-first approach
+- Clear acceptance criteria
+- Integration instructions included
+- No assumed knowledge
+
+**Example Prompt Structure**:
+````markdown
 ```text
-You are implementing a user authentication service following Test-Driven Development (TDD) principles.
+Think carefully about implementing [feature] using strict TDD principles.
 
-**Context from Previous Tasks:**
-- Task 1: Database models have been created with User table containing id, email, password_hash, created_at, updated_at
-- Task 2: Basic Express API setup is complete with routing structure and middleware configuration
+**Previous Context**:
+[What was built before]
 
-**Your Objective:**
-Implement JWT-based authentication with secure password handling.
+**Your Task**:
+[Clear objective]
 
-**TDD Requirements - Write These Tests FIRST:**
-1. Test that password hashing produces different hashes for the same password (salting)
-2. Test that password verification correctly validates matching passwords
-3. Test that JWT token generation includes user ID and expiration
-4. Test that JWT token validation accepts valid tokens and rejects invalid/expired ones
-5. Test that login endpoint returns 401 for invalid credentials
-6. Test that login endpoint returns valid JWT for correct credentials
-7. Test that protected routes reject requests without tokens
-8. Test that protected routes accept requests with valid tokens
+**Tests to Write FIRST** (must fail initially):
+1. Test that [specific behavior]
+2. Test edge case when [condition]
+3. Test error handling for [scenario]
 
-**Implementation Approach:**
-- Use bcrypt for password hashing (10 salt rounds)
-- Use jsonwebtoken library for JWT operations
-- Create /auth/login POST endpoint
-- Create authentication middleware for protected routes
-- Store JWT secret in environment variables
-- Set appropriate token expiration (e.g., 24 hours)
+**Implementation Approach**:
+- Use [pattern/library]
+- Follow [principle]
+- Consider [constraint]
 
-**Integration Steps:**
-1. Add authentication middleware to the Express app
-2. Update User model to include password comparison method
-3. Wire login endpoint into existing router structure
-4. Apply authentication middleware to routes that need protection
-5. Ensure all tests pass before considering the task complete
+**Integration Requirements**:
+1. Connect to [existing component]
+2. Update [configuration]
+3. Wire into [system]
 
-Remember: Write tests first, then implement only enough code to make them pass.
+**Success Validation**:
+- All tests pass
+- No regression in existing tests
+- Code follows project patterns
+- Integration verified
+
+Begin by writing the failing tests.
 ```
-```
+````
 
-## Output Format
+**Prompt Generation Checkpoint**:
+- [ ] Each prompt self-contained
+- [ ] TDD explicitly required
+- [ ] Context clearly provided
+- [ ] Integration specified
+- [ ] Validation criteria included
 
-The plan should produce in `plan.md`:
-1. **Overview section** with high-level architecture and approach
-2. **Task breakdown** with issue-ready tasks including:
-   - Title, description, and acceptance criteria
-   - Dependencies and effort estimates
-   - TDD approach for each task
-3. **AI Agent Prompts** for each task:
-   - Each prompt wrapped in ````text` code blocks
-   - Self-contained with all necessary context
-   - Clear TDD instructions (tests first, then implementation)
-   - Integration steps to connect with previous work
-4. **Dependency graph** showing task relationships
-5. **Testing strategy** for overall system
+### Phase 5: Deliverable Creation
+**Objective**: Produce comprehensive planning artifacts
 
-Additionally create `todo.md` with:
-- Checklist of all tasks with status tracking
-- Dependencies clearly marked
-- Ready for tracking progress
+Generate required files:
 
-The prompts should be formatted exactly like this:
+#### 5.1: plan.md Contents
 ```markdown
-### Task N: [Task Title]
+# Implementation Plan
 
-[Task description and metadata...]
+## Architecture Overview
+[System design and component diagram]
 
-#### AI Agent Prompt:
+## Technology Stack
+[Languages, frameworks, libraries]
 
-```text
-[Complete, self-contained prompt that can be given directly to an AI agent]
+## Task Breakdown
+[All tasks with metadata]
+
+## AI Implementation Prompts
+[All prompts in executable format]
+
+## Dependency Graph
+[Visual or textual representation]
+
+## Testing Strategy
+[Overall approach to system testing]
+
+## Risk Mitigation
+[Identified risks and mitigation plans]
 ```
+
+#### 5.2: todo.md Contents
+```markdown
+# Task Tracking
+
+## Phase 1: Foundation
+- [ ] Task 1: [Title] (Complexity: N, Tests: N)
+- [ ] Task 2: [Title] (depends on Task 1)
+
+## Phase 2: Core Features
+- [ ] Task 3: [Title] (depends on Tasks 1-2)
+
+## Phase 3: Integration
+- [ ] Task N: [Title] (final integration)
+
+## Validation Checklist
+- [ ] All tests passing
+- [ ] Documentation complete
+- [ ] Performance acceptable
+- [ ] Security verified
 ```
 
-Begin by analyzing the specification file.
+**Deliverable Checkpoint**:
+- [ ] plan.md comprehensive
+- [ ] todo.md actionable
+- [ ] Prompts extractable
+- [ ] Dependencies clear
+- [ ] Ready for execution
+
+## Quality Validation
+
+### Planning Quality Metrics
+Evaluate the plan against:
+1. **Completeness**: All requirements addressed?
+2. **Testability**: Every feature has clear tests?
+3. **Incrementality**: Smooth progression?
+4. **Independence**: Tasks can be done in parallel where possible?
+5. **Clarity**: Prompts are unambiguous?
+
+### Success Criteria
+The plan is complete when:
+- Every requirement maps to tasks
+- Every task has a TDD prompt
+- Dependencies form a valid DAG
+- No implementation gaps exist
+- Testing strategy is comprehensive
+
+## Effort Estimation Framework
+
+### Complexity Scoring (1-5)
+1. **Trivial**: Configuration or simple logic
+2. **Simple**: Straightforward implementation
+3. **Moderate**: Multiple components involved
+4. **Complex**: Architectural decisions required
+5. **Very Complex**: Research and experimentation needed
+
+### Test Coverage Units (TCU)
+Count distinct behaviors:
+- Each assertion = 1 TCU
+- Each edge case = 1 TCU
+- Each error path = 1 TCU
+- Integration test = 2-3 TCU
+
+### AI Interaction Rounds
+Estimate iterations:
+- Simple task: 1-2 rounds
+- Moderate task: 3-4 rounds
+- Complex task: 5+ rounds
+
+## Anti-Patterns to Avoid
+
+**Planning Mistakes**:
+- Tasks too large (>5 complexity)
+- Missing test specifications
+- Unclear dependencies
+- Vague acceptance criteria
+- No integration instructions
+
+**TDD Violations**:
+- Writing code before tests
+- Skipping test failure verification
+- Not refactoring after green
+- Incomplete test coverage
+- Testing implementation not behavior
+
+Begin with Phase 1: Specification Deep Dive using the investigator sub-agent.

@@ -5,81 +5,159 @@ argument-hint: <feature description>
 
 # Test-Driven Development Workflow
 
-You will implement the following feature using strict TDD principles: $ARGUMENTS
+Think deeply about the feature requirements and execute a disciplined TDD workflow to implement: $ARGUMENTS
 
-## Workflow Overview
+## Pre-Implementation Analysis
 
-Follow the TDD red-green-refactor cycle using structured phases with appropriate sub-agents:
+Before writing any code, I will:
+1. **Understand Requirements**: Analyze what the feature must do and why
+2. **Identify Behaviors**: List all behaviors that need testing
+3. **Design Test Strategy**: Plan comprehensive test coverage
+4. **Consider Edge Cases**: Think through failure modes and boundaries
+5. **Verify Approach**: Ensure TDD is the right methodology for this task
 
-### Phase 1: Test Planning & Writing
+## TDD Execution Phases
+
+### Phase 1: Test Planning & Writing (RED)
+**Objective**: Define behavior through failing tests
+
 Use the `test-writer` sub-agent to:
-- Understand the feature requirements thoroughly
-- Design comprehensive test cases that define the expected behavior  
-- Write failing tests that cover all aspects of the feature
-- Ensure tests are well-structured and follow testing best practices
-- Create tests for happy path, edge cases, and error conditions
+- Design test architecture and organization
+- Write comprehensive test cases covering:
+  - Happy path scenarios
+  - Edge cases and boundaries
+  - Error conditions and exceptions
+  - Integration points
+- Verify tests fail for the right reasons
+- Document what each test validates
+
+**Validation Checkpoint**:
+- [ ] All requirements have corresponding tests
+- [ ] Tests are atomic and focused
+- [ ] Test names clearly describe behavior
+- [ ] Tests fail with meaningful error messages
 
 ### Phase 2: Initial Test Commit
+**Objective**: Lock in behavioral specification
+
 Use the `committer` sub-agent to:
-- Review the written tests for completeness and quality
-- Commit failing tests with descriptive message like "Add failing tests for [feature]"
-- Verify tests actually fail (RED phase of TDD)
-- Document test expectations clearly
+- Review test completeness and quality
+- Run tests to confirm they fail correctly
+- Commit with message: "test: add failing tests for [feature]"
+- Document expected vs actual behavior
 
-### Phase 3: Implementation Cycle
+**Validation Checkpoint**:
+- [ ] Tests committed in failing state
+- [ ] Failure messages are informative
+- [ ] No syntax errors in tests
+- [ ] Test structure follows project conventions
+
+### Phase 3: Minimal Implementation (GREEN)
+**Objective**: Make tests pass with simplest code possible
+
+Use the `coder` sub-agent to implement incrementally:
+
+**Iteration Loop** (repeat for each test):
+1. Pick one failing test
+2. Write minimal code to make it pass
+3. Run test suite to verify:
+   - Target test now passes
+   - No existing tests broken
+4. Continue to next failing test
+
+**Implementation Rules**:
+- Write ONLY code required to pass current test
+- No premature optimization
+- No untested functionality
+- Follow existing patterns
+
+**Validation Checkpoint**:
+- [ ] Each test passes individually
+- [ ] All tests pass together
+- [ ] No test is skipped or disabled
+- [ ] Implementation is minimal but complete
+
+### Phase 4: Refactoring (REFACTOR)
+**Objective**: Improve code quality while maintaining green tests
+
 Use the `coder` sub-agent to:
-- Write minimal code to make the first failing test pass
-- Run tests frequently to verify progress
-- Implement only what's needed to pass current tests
-- Avoid over-engineering or implementing untested features
-- Follow existing code patterns and conventions
+- Identify code smells and duplication
+- Refactor for clarity and maintainability
+- Extract methods/functions where appropriate
+- Improve naming and structure
+- Run tests after EVERY change
 
-### Phase 4: Test Validation Loop
-Iterate between running tests and coding until:
-- All tests pass consistently (GREEN phase of TDD)
-- No tests are skipped or ignored
-- Code coverage meets requirements
-- Implementation is clean and maintainable
+**Refactoring Checklist**:
+- [ ] Remove duplication (DRY principle)
+- [ ] Improve readability
+- [ ] Simplify complex logic
+- [ ] Ensure consistent style
+- [ ] All tests remain green
 
-### Phase 5: Refactor & Polish
-Use the `coder` sub-agent to:
-- Refactor code while keeping tests green
-- Improve code structure and readability
-- Remove duplication and improve design
-- Ensure all tests still pass after refactoring
+### Phase 5: Quality Verification
+**Objective**: Ensure implementation meets standards
+
+Perform comprehensive validation:
+1. Run entire test suite
+2. Check code coverage metrics
+3. Review for missing test cases
+4. Verify performance characteristics
+5. Ensure documentation is updated
+
+**Quality Metrics**:
+- Test Coverage: [target percentage]
+- All Tests Passing: Yes/No
+- Performance: Meets requirements
+- Code Quality: Follows standards
 
 ### Phase 6: Final Commit
+**Objective**: Deliver complete, tested feature
+
 Use the `committer` sub-agent to:
-- Review the complete implementation
-- Verify all tests pass and code is clean
-- Create meaningful commit message describing the implemented feature
-- Ensure documentation is updated if needed
+- Review complete implementation
+- Verify all quality checks pass
+- Create commit: "feat: implement [feature] with full test coverage"
+- Update relevant documentation
 
-## TDD Principles to Follow
+**Final Checklist**:
+- [ ] All tests pass
+- [ ] Code is clean and documented
+- [ ] Feature works as specified
+- [ ] Changes are atomic and focused
 
-1. **RED**: Write a failing test first
-2. **GREEN**: Write minimal code to make it pass  
-3. **REFACTOR**: Improve code while keeping tests green
-4. **Never write production code without a failing test**
-5. **Tests define the API and behavior**
-6. **Keep tests simple, focused, and readable**
+## TDD Principles Enforcement
 
-## Success Criteria
+**Core Rules** (NEVER violate):
+1. No production code without failing test
+2. Write minimal code to pass tests
+3. Refactor only with green tests
+4. One logical change at a time
+5. Tests are the specification
 
-- All tests pass consistently
-- Code is well-tested with good coverage
-- Implementation follows existing patterns
-- Code is clean and maintainable
-- Feature works as specified
-- Two commits: one for tests, one for implementation
+## Iteration Strategy
 
-## Important Notes
+If tests reveal gaps or issues:
+1. **Stop implementation immediately**
+2. **Write additional failing tests**
+3. **Restart implementation cycle**
+4. **Document learning for future**
 
-- **NEVER skip the test-first phase** - this is fundamental to TDD
-- Tests should fail initially - if they pass immediately, they're not testing new code
-- Write the simplest code possible to make tests pass
-- Refactor fearlessly - tests provide the safety net
-- Each phase builds on the previous one - maintain discipline
-- If implementation reveals test gaps, add more tests and restart the cycle
+## Success Metrics
 
-Begin with Phase 1: Test Planning & Writing.
+Track and report:
+- Number of tests written: [count]
+- Test execution time: [seconds]
+- Code coverage achieved: [percentage]
+- Refactoring iterations: [count]
+- Total implementation time: [duration]
+
+## Common Pitfalls to Avoid
+
+- Writing tests after code (not TDD)
+- Writing too much code at once
+- Skipping refactoring phase
+- Not running tests frequently
+- Testing implementation instead of behavior
+- Coupling tests to implementation details
+
+Begin with Phase 1: Test Planning & Writing. Think carefully about what behaviors need testing.

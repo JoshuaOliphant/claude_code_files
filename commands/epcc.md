@@ -5,113 +5,221 @@ argument-hint: <feature description or task>
 
 # Explore-Plan-Code-Commit Workflow
 
-You will implement the following task using the structured EPCC workflow: $ARGUMENTS
+Think systematically about this implementation task and execute the structured EPCC workflow to deliver: $ARGUMENTS
 
-## Workflow Overview
+## Pre-Workflow Analysis
 
-Follow these four phases in order, using the appropriate sub-agents for each phase:
+Before beginning the EPCC phases, I will analyze:
+1. **Task Scope**: What exactly needs to be built and why
+2. **Complexity Assessment**: Is this simple, medium, or complex?
+3. **Risk Identification**: What could go wrong or block progress?
+4. **Success Criteria**: How will we know when we're done?
+5. **Agent Allocation**: Which sub-agents are best suited for each phase?
 
-### Phase 1: Explore
+## Workflow Execution Phases
+
+### Phase 1: EXPLORE - Deep Investigation
+**Objective**: Gather complete context and understanding
+
 Use the `investigator` sub-agent to:
-- Thoroughly understand the codebase and existing patterns
-- Research best practices and potential approaches
-- Gather all necessary context before planning
+- Thoroughly understand the existing codebase architecture
+- Research best practices and industry patterns
+- Identify integration points and dependencies
+- Document assumptions and constraints
+- Find similar implementations for reference
 
-### Phase 2: Plan
+**Exploration Checkpoint**:
+- [ ] Codebase structure understood
+- [ ] Existing patterns identified
+- [ ] Dependencies mapped
+- [ ] Best practices researched
+- [ ] Constraints documented
+
+### Phase 2: PLAN - Strategic Design
+**Objective**: Create detailed implementation blueprint
+
 Use the `planner` sub-agent to:
-- Create a detailed implementation strategy
-- Evaluate multiple approaches
-- Break down the task into manageable steps
-- Identify risks and dependencies
+- Design comprehensive implementation strategy
+- Evaluate multiple architectural approaches
+- Decompose into testable, atomic steps
+- Identify risks and mitigation strategies
+- Create dependency graph between tasks
 
-### Phase 3: Test-Driven Development
+**Planning Checkpoint**:
+- [ ] Multiple approaches evaluated
+- [ ] Optimal approach selected
+- [ ] Tasks broken down appropriately
+- [ ] Dependencies clearly mapped
+- [ ] Risks identified with mitigations
 
-#### Phase 3.1: Write Failing Tests First (RED Phase)
+### Phase 3: CODE - Test-Driven Implementation
+**Objective**: Build feature with quality and confidence
+
+#### Phase 3.1: Write Tests First (RED)
 Use the `test-writer` sub-agent to:
-- Write comprehensive tests for ALL planned functionality
-- Run tests to verify they FAIL as expected
-- Tests MUST fail initially - this proves they're testing something real
-- Capture and document the failure output
+- Design comprehensive test suite architecture
+- Write failing tests for ALL requirements
+- Include edge cases and error conditions
+- Verify tests fail for the right reasons
+- Document what each test validates
 
-#### Phase 3.2: Implement Code to Pass Tests (GREEN Phase)
+**Test Creation Checkpoint**:
+- [ ] All behaviors have tests
+- [ ] Tests are failing as expected
+- [ ] Edge cases covered
+- [ ] Error conditions tested
+- [ ] Test documentation complete
+
+#### Phase 3.2: Minimal Implementation (GREEN)
 Use the `coder` sub-agent to:
-- Implement ONLY enough code to make failing tests pass
-- Focus on one test at a time if possible
-- No over-engineering - minimal viable implementation
-- Maintain code quality and conventions
+- Implement ONLY code needed to pass tests
+- Focus on one failing test at a time
+- Avoid premature optimization
+- Follow existing code patterns
+- Maintain consistent style
 
-#### Phase 3.3: Test Execution and Iteration Loop
-**CRITICAL: This loop MUST continue until ALL tests pass**
+**Implementation Rules**:
+- No code without failing test
+- Simplest solution that works
+- One logical change at a time
+- Preserve existing functionality
 
-1. **Run All Tests**:
-   - Execute test suite (pytest, npm test, cargo test, etc.)
-   - Capture complete output including:
-     - Which tests pass
-     - Which tests fail
-     - Error messages and stack traces
-     - Test coverage if available
+#### Phase 3.3: Test-Fix Iteration Loop
+**CRITICAL**: Continue until ALL tests pass
+
+**Iteration Process** (max 10 rounds):
+1. **Execute Tests**:
+   ```bash
+   # Run appropriate test command
+   pytest / npm test / cargo test / go test
+   ```
 
 2. **Analyze Results**:
-   - If ALL tests pass → proceed to Phase 3.4
-   - If tests fail → continue to step 3
+   - Record passing tests count
+   - Document failing tests
+   - Capture error messages
+   - Note test coverage
 
-3. **Fix Failing Tests**:
-   - Return to `coder` sub-agent with:
-     - Specific test failures
-     - Error messages
-     - Request to fix ONLY the failing functionality
-   - Implement fixes targeting specific failures
+3. **Decision Point**:
+   - All tests pass → Proceed to 3.4
+   - Tests failing → Fix specific failures
+   - New edge cases → Write new tests first
+   - Iteration limit → Document blockers
 
-4. **Verify Fix**:
-   - Run tests again
-   - If still failing → return to step 3
-   - If new edge cases found → write new tests first (back to Phase 3.1)
+4. **Fix Implementation**:
+   - Target specific test failures
+   - Make minimal changes
+   - Verify fix doesn't break other tests
+   - Run full suite after each fix
 
-5. **Iteration Limit**:
-   - Maximum 10 iterations
-   - If limit reached, document:
-     - Which tests still fail
-     - Suspected root causes
-     - Blockers preventing resolution
+**Iteration Checkpoint**:
+- [ ] Test results captured
+- [ ] Failures analyzed
+- [ ] Fixes implemented
+- [ ] Progress documented
+- [ ] Iteration count tracked
 
-#### Phase 3.4: Refactor (REFACTOR Phase - Optional)
+#### Phase 3.4: Refactor (REFACTOR)
 Once all tests pass:
-- Clean up code for readability and maintainability
-- Remove duplication
-- Improve naming and structure
-- Run tests after EVERY refactoring change
-- Stop immediately if tests fail after refactoring
+- Eliminate code duplication
+- Improve naming and clarity
+- Simplify complex logic
+- Extract reusable components
+- Run tests after EVERY change
 
-### Phase 3.5: Lint & Format
-Before committing, use the `linter` sub-agent to:
-- Run Ruff to check for style issues
-- Automatically fix formatting and safe lint issues
-- Report any issues that need manual intervention
-- Ensure code meets project quality standards
+**Refactoring Checkpoint**:
+- [ ] Code is DRY
+- [ ] Names are descriptive
+- [ ] Logic is simplified
+- [ ] Tests still passing
+- [ ] Performance acceptable
 
-### Phase 4: Commit
+### Phase 3.5: Quality Assurance
+**Objective**: Ensure code meets standards
+
+Use the `linter` sub-agent to:
+- Run automated formatting (Ruff/ESLint/etc.)
+- Fix style violations automatically
+- Report issues needing manual fix
+- Verify type checking passes
+- Ensure documentation updated
+
+**Quality Checkpoint**:
+- [ ] Linting passes
+- [ ] Formatting correct
+- [ ] Types validated
+- [ ] Documentation current
+- [ ] Standards met
+
+### Phase 4: COMMIT - Version Control
+**Objective**: Create clean git history
+
 Use the `committer` sub-agent to:
-- Review all changes (including linting fixes)
-- Create meaningful commit messages
-- Update documentation if needed
-- Ensure tests pass before committing
+- Review all changes comprehensively
+- Stage appropriate files
+- Create atomic, meaningful commits
+- Write descriptive commit messages
+- Update relevant documentation
 
-### Phase 5: Pull Request (if needed)
-If creating a pull request, use the `pr-drafter` sub-agent to:
-- Analyze all changes compared to the base branch
+**Commit Checkpoint**:
+- [ ] Changes reviewed
+- [ ] Files staged correctly
+- [ ] Commit message clear
+- [ ] Tests passing
+- [ ] Documentation updated
+
+### Phase 5: Pull Request (if applicable)
+**Objective**: Prepare for code review
+
+Use the `pr-drafter` sub-agent to:
+- Analyze changes vs base branch
 - Create comprehensive PR description
-- Include test results and verification steps
+- Include test results and coverage
 - Reference related issues
-- Use GitHub CLI to create the PR
+- Add review checklist
 
-## Important Notes
-- Each phase builds on the previous one - do not skip initial phases
-- The explore and plan phases are crucial for success
-- Phase 3 follows strict TDD: tests must be written first and must fail initially
-- Phase 3.3 is a critical loop that MUST continue until all tests pass
-- Maximum 10 iterations for test fixes - document blockers if limit reached
-- Run tests after EVERY code change, including refactoring
-- Maintain clear communication about progress throughout
-- The workflow is flexible - adapt based on discoveries during implementation
+**PR Checkpoint**:
+- [ ] All changes included
+- [ ] Description comprehensive
+- [ ] Tests documented
+- [ ] Issues linked
+- [ ] Ready for review
 
-Begin with Phase 1: Explore.
+## Validation & Completion
+
+### Final Verification Checklist
+- [ ] Original requirements fully met
+- [ ] All tests passing
+- [ ] Code quality standards met
+- [ ] Documentation complete
+- [ ] No regression introduced
+- [ ] Performance acceptable
+- [ ] Security considerations addressed
+
+### Success Metrics
+Track and report:
+- Tests written: [count]
+- Test coverage: [percentage]
+- Iterations needed: [count]
+- Refactoring rounds: [count]
+- Total execution time: [duration]
+
+## Workflow Rules
+
+**NEVER violate these principles**:
+1. No skipping exploration phase
+2. Plan before coding
+3. Tests before implementation
+4. Fix all failing tests
+5. Quality before speed
+
+## Adaptive Execution
+
+If blockers encountered:
+1. **Document the blocker clearly**
+2. **Attempt alternative approach**
+3. **Escalate if truly blocked**
+4. **Create issues for follow-up**
+5. **Deliver partial if valuable**
+
+Begin with Phase 1: EXPLORE using the investigator sub-agent.

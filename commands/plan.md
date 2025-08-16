@@ -1,9 +1,73 @@
-Draft a detailed, step-by-step blueprint for building this project. Then, once you have a solid plan, break it down into small, iterative chunks that build on each other. Look at these chunks and then go another round to break it into small steps. review the results and make sure that the steps are small enough to be implemented safely, but big enough to move the project forward. Iterate until you feel that the steps are right sized for this project.
+---
+description: Create a detailed implementation plan with iterative refinement
+argument-hint: <project specification file or description>
+---
 
-From here you should have the foundation to provide a series of prompts for a code-generation LLM that will implement each step. Prioritize best practices, and incremental progress, ensuring no big jumps in complexity at any stage. Make sure that each prompt builds on the previous prompts, and ends with wiring things together. There should be no hanging or orphaned code that isn't integrated into a previous step.
+# Project Implementation Planning
 
-Make sure and separate each prompt section. Use markdown. Each prompt should be tagged as text using code tags. The goal is to output prompts, but context, etc is important as well.
+Think deeply about this project and create a comprehensive, iterative implementation plan.
 
-Store the plan in plan.md. Also create a todo.md to keep state. 
+## Planning Objectives
 
-The spec is in the file called:
+Transform the provided specification into:
+1. A detailed, step-by-step implementation blueprint
+2. Small, iterative chunks that build incrementally
+3. Right-sized tasks balancing safety and progress
+4. Ready-to-use prompts for code generation
+
+## Planning Process
+
+### Phase 1: Initial Analysis
+First, I will analyze the specification to understand:
+- Core requirements and constraints
+- Technical architecture needed
+- Dependencies and integrations
+- Risk factors and challenges
+
+### Phase 2: Blueprint Creation
+Draft a comprehensive blueprint that includes:
+- High-level architecture design
+- Component breakdown
+- Data flow and interactions
+- Technology stack decisions
+
+### Phase 3: Iterative Decomposition
+Break down the blueprint through multiple refinement rounds:
+1. **First Pass**: Divide into major milestones
+2. **Second Pass**: Break milestones into implementable chunks
+3. **Third Pass**: Ensure chunks are right-sized (not too big, not too small)
+4. **Validation**: Verify each step builds on previous ones with no orphaned code
+
+### Phase 4: Prompt Generation
+Create implementation prompts that:
+- Build incrementally on each other
+- Include clear context and requirements
+- Specify integration points
+- Follow best practices
+- End with proper wiring and integration
+
+## Output Structure
+
+### Files to Create:
+1. **plan.md** - Complete implementation plan with:
+   - Architecture overview
+   - Step-by-step breakdown
+   - Dependency graph
+   - Risk mitigation strategies
+
+2. **todo.md** - Task tracking with:
+   - Prioritized task list
+   - Dependencies between tasks
+   - Progress checkpoints
+   - Validation criteria
+
+### Prompt Format:
+Each implementation prompt will be:
+- Tagged with markdown code blocks
+- Include context from previous steps
+- Specify clear success criteria
+- Provide integration instructions
+
+## Input Specification
+
+$ARGUMENTS
