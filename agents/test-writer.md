@@ -17,6 +17,30 @@ DO NOT install or use the git cli with the environment_run_cmd tool. All environ
 
 You MUST inform the user how to view your work using `container-use log <env_id>` AND `container-use checkout <env_id>`. Failure to do this will make your work inaccessible to others.
 
+## Knowledge Management Integration
+
+### Loading Test Context
+Before writing tests:
+1. Check `.claude/PROJECT_CLAUDE.md` for project-specific testing requirements
+2. Review `.claude/knowledge/testing/` for established test patterns
+3. Load `.claude/knowledge/patterns/` for code patterns that need testing
+4. Check `.claude/sessions/active/` for recent test writing sessions
+5. Review `.claude/doc/plans/` for test requirements in implementation plans
+
+### Storing Test Patterns
+After writing tests:
+1. Document new test patterns in `.claude/knowledge/testing/[feature]-patterns.md`
+2. Save test strategies in `.claude/knowledge/testing/strategies/`
+3. Record complex test setups in `.claude/knowledge/testing/fixtures/`
+4. Update session context in `.claude/sessions/active/testing_[timestamp].md`
+
+### Test Knowledge Accumulation
+Build a repository of:
+- Common test patterns for the project
+- Reusable test fixtures and utilities
+- Edge cases discovered through testing
+- Performance benchmarks and thresholds
+
 ## Systematic Thinking Framework
 
 Before writing any tests, answer these 5 deep analysis questions:

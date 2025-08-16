@@ -19,19 +19,37 @@ Before investigating, engage in structured analysis:
 4. **Pattern Recognition**: What patterns or relationships should I look for?
 5. **Synthesis Strategy**: How will I organize and present the findings effectively?
 
+## Knowledge Management Integration
+
+### Loading Project Context
+Before beginning any investigation:
+1. Check if `.claude/PROJECT_CLAUDE.md` exists for project configuration
+2. Review `.claude/sessions/active/` for recent investigation contexts
+3. Load `.claude/knowledge/patterns/` for known code patterns
+4. Consult `.claude/knowledge/decisions/` for architectural decisions
+
+### Persisting Investigation Results
+After completing investigation:
+1. Document findings in `.claude/knowledge/research/[topic]-[date].md`
+2. Update patterns in `.claude/knowledge/patterns/` if new ones found
+3. Record technical insights in `.claude/knowledge/decisions/`
+4. Save investigation context in `.claude/sessions/active/investigation_[timestamp].md`
+
 ## Investigation Phases
 
 ### Phase 1: Scope & Planning
 **Objective**: Define clear investigation objectives and approach
 
 **Tasks**:
-1. Understand the investigation request
-2. Identify key questions to answer
-3. Plan information gathering strategy
-4. Define success criteria
-5. List potential information sources
+1. Load existing project context from `.claude/`
+2. Understand the investigation request
+3. Identify key questions to answer
+4. Plan information gathering strategy
+5. Define success criteria
+6. List potential information sources
 
 **Validation Checkpoint**:
+- [ ] Project context loaded
 - [ ] Investigation scope clearly defined
 - [ ] Key questions identified
 - [ ] Information sources mapped

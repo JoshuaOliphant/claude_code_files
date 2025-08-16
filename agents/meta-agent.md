@@ -100,6 +100,28 @@ You are a [role-definition] specialized in [primary-domain]. Your core mission i
 - [Competency 2: specific expertise area]
 - [Competency 3: specific expertise area]
 
+## Knowledge Management Integration
+
+When working on this task, leverage the project's knowledge management system:
+
+### Reading Context
+- Check `.claude/sessions/active/` for recent session contexts
+- Review `.claude/knowledge/patterns/` for established code patterns
+- Consult `.claude/knowledge/decisions/` for technical decisions
+- Load `.claude/PROJECT_CLAUDE.md` for project-specific configuration
+
+### Writing Knowledge
+- Document significant patterns in `.claude/knowledge/patterns/[pattern-name].md`
+- Record technical decisions in `.claude/knowledge/decisions/[decision-date].md`
+- Update session context in `.claude/sessions/active/session_[timestamp].md`
+- Store test strategies in `.claude/knowledge/testing/[feature].md`
+
+### Context Awareness
+- Begin by checking if `.claude/PROJECT_CLAUDE.md` exists
+- If it exists, load project-specific requirements and patterns
+- Use established patterns from the knowledge base when applicable
+- Build on previous session contexts rather than starting fresh
+
 ## Detailed Instructions
 
 When invoked, you MUST follow this exact workflow:
@@ -116,18 +138,25 @@ When invoked, you MUST follow this exact workflow:
 5. [Verification step with specific checks]
 6. [Quality assurance step]
 
+### Phase 4: Knowledge Persistence
+7. Document any new patterns discovered
+8. Update session context with work completed
+9. Record any technical decisions made
+
 ## Validation Criteria
 
 Your work is complete when:
 - [ ] [Specific measurable criterion]
 - [ ] [Specific measurable criterion]
 - [ ] [Specific measurable criterion]
+- [ ] Relevant knowledge has been persisted to `.claude/` structure
 
 ## Error Handling
 
 If you encounter issues:
 - [Specific error type]: [Specific resolution action]
 - [Specific error type]: [Specific resolution action]
+- Missing knowledge structure: Continue without persistence, note in response
 
 ## Best Practices
 
@@ -135,6 +164,12 @@ If you encounter issues:
 - [Highly specific best practice for this agent's domain]
 - [Highly specific best practice for this agent's domain]
 - [Highly specific best practice for this agent's domain]
+
+**Knowledge Management:**
+- Always check for existing patterns before creating new solutions
+- Document decisions with rationale for future reference
+- Keep session contexts focused and relevant
+- Archive old sessions when starting new major work
 
 **Quality Standards:**
 - [Specific quality metric to maintain]
@@ -146,6 +181,7 @@ Provide your final response as:
 1. [Specific output structure]
 2. [Specific output structure]
 3. [Summary of actions taken and results]
+4. [Knowledge artifacts created/updated]
 
 ## Internal Reasoning
 
@@ -153,6 +189,7 @@ When processing requests, consider:
 - [Key consideration 1]
 - [Key consideration 2]
 - [Edge case to watch for]
+- Previous patterns and decisions from knowledge base
 ```
 
 2. **Self-Evaluation:**

@@ -19,19 +19,38 @@ Before planning, engage in deep analysis:
 4. **Dependency Analysis**: What are the dependencies and integration points?
 5. **Success Definition**: How will we measure success? What are the acceptance criteria?
 
+## Knowledge Management Integration
+
+### Loading Planning Context
+Before creating any plan:
+1. Check `.claude/PROJECT_CLAUDE.md` for project-specific requirements
+2. Review `.claude/knowledge/patterns/` for established architectural patterns
+3. Load `.claude/knowledge/decisions/` for previous technical decisions
+4. Consult `.claude/doc/plans/` for existing implementation plans
+5. Check `.claude/sessions/active/` for recent planning sessions
+
+### Persisting Planning Artifacts
+After completing planning:
+1. Save detailed plan in `.claude/doc/plans/[feature]-plan-[date].md`
+2. Document architectural decisions in `.claude/knowledge/decisions/`
+3. Record new patterns in `.claude/knowledge/patterns/`
+4. Update session context in `.claude/sessions/active/planning_[timestamp].md`
+
 ## Planning Phases
 
 ### Phase 1: Context Analysis
 **Objective**: Gain comprehensive understanding of the problem space
 
 **Tasks**:
-1. Read all relevant files and documentation
-2. Analyze existing codebase architecture
-3. Identify constraints and requirements
-4. Map dependencies and integration points
-5. Document assumptions and unknowns
+1. Load existing project knowledge from `.claude/`
+2. Read all relevant files and documentation
+3. Analyze existing codebase architecture
+4. Identify constraints and requirements
+5. Map dependencies and integration points
+6. Document assumptions and unknowns
 
 **Validation Checkpoint**:
+- [ ] Project knowledge loaded
 - [ ] Problem fully understood
 - [ ] All context gathered
 - [ ] Constraints documented

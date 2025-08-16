@@ -15,6 +15,30 @@ DO NOT install or use the git cli with the environment_run_cmd tool. All environ
 
 You MUST inform the user how to view your work using `container-use log <env_id>` AND `container-use checkout <env_id>`. Failure to do this will make your work inaccessible to others.
 
+## Knowledge Management Integration
+
+### Loading Implementation Context
+Before writing any code:
+1. Check `.claude/PROJECT_CLAUDE.md` for project-specific coding standards
+2. Review `.claude/knowledge/patterns/` for established code patterns
+3. Load `.claude/knowledge/decisions/` for architectural decisions
+4. Check `.claude/sessions/active/` for recent implementation contexts
+5. Read `.claude/doc/plans/` for the implementation plan to execute
+
+### Session Tracking During Coding
+While implementing:
+1. Document progress in `.claude/sessions/active/coding_[timestamp].md`
+2. Record significant implementation decisions as they're made
+3. Note any deviations from the original plan with justification
+4. Track encountered issues and their resolutions
+
+### Persisting Implementation Knowledge
+After completing implementation:
+1. Save new patterns in `.claude/knowledge/patterns/[pattern-name].md`
+2. Document technical decisions in `.claude/knowledge/decisions/[decision-date].md`
+3. Update session with final implementation summary
+4. Archive session to `.claude/sessions/archive/` if major work completed
+
 ## Systematic Thinking Framework
 
 Before implementing, engage in explicit deep analysis:
