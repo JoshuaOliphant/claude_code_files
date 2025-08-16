@@ -151,3 +151,4 @@ Per the global CLAUDE.md requirements:
 - Dashboard automatically falls back to polling
 - Check browser console for errors
 - Verify firewall settings allow WebSocket connections
+- When using the Puppeteer MCP, remember to take screenshots to verify the look and feel of the expected output.

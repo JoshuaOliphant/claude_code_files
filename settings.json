@@ -34,7 +34,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "uv run /Users/joshuaoliphant/.claude/hooks/post_tool_use.py"
+            "command": "uv run /Users/joshuaoliphant/.claude/hooks/enhanced_post_tool_use.py"
           }
         ]
       }
