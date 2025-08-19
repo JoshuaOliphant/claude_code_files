@@ -172,3 +172,60 @@ The primary development workflow defined in `/commands/epcc.md`:
 - Tool permissions configured in `settings.json`
 - Comprehensive audit trail via JSON logging
 - Never store credentials in configuration files
+
+## Knowledge Management System
+
+Claude Code now includes an integrated knowledge management system that provides:
+
+### Features
+- **Persistent Context**: Session information survives Claude Code restarts
+- **Knowledge Accumulation**: Patterns, decisions, and insights build over time
+- **Agent Integration**: All agents can read and write to the knowledge base
+- **Project Intelligence**: Claude understands your project deeply through accumulated knowledge
+
+### Project Initialization
+When starting work on a new project:
+1. Claude will detect if the project needs initialization
+2. Run `/project-init` to create the knowledge structure
+3. The system creates `.claude/` directory with organized subdirectories
+
+### Knowledge Structure
+```
+<project-root>/.claude/
+├── PROJECT_CLAUDE.md    # Project-specific configuration
+├── doc/                 # Documentation and plans
+│   ├── plans/          # Implementation plans
+│   ├── research/       # Research findings
+│   └── implementation/ # Implementation notes
+├── sessions/           # Session management
+│   ├── active/        # Current work sessions
+│   └── archive/       # Historical sessions
+├── knowledge/         # Accumulated knowledge
+│   ├── patterns/      # Code patterns and solutions
+│   ├── decisions/     # Technical decisions
+│   └── testing/       # Test strategies
+└── templates/         # Project templates
+```
+
+### How Agents Use Knowledge
+- **Investigator**: Stores research findings and discovered patterns
+- **Planner**: Saves implementation plans and architectural decisions
+- **Coder**: Tracks implementation progress and coding patterns
+- **Test-writer**: Documents test patterns and strategies
+- **Committer**: Logs technical decisions with commit references
+- **Meta-agent**: Includes knowledge instructions in new agents
+
+### Session Management
+- Sessions track work progress within a project
+- Active sessions load automatically on Claude Code startup
+- Old sessions archive automatically after 7 days
+- Session contexts persist across Claude Code restarts
+
+### Best Practices
+- Commit `.claude/knowledge/` to share team insights
+- Keep `.claude/sessions/` in .gitignore for privacy
+- Review accumulated patterns periodically
+- Update PROJECT_CLAUDE.md as conventions evolve
+
+- Don't leave dangling, unused code behind. If you see something that needs to be cleaned up, then clean it up.
+- gpt-5 models exist, including gpt-5-nano.

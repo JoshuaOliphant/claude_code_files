@@ -2,7 +2,6 @@
 name: coder
 description: Use for implementing detailed technical plans into actual code. Specialist for the "Code" phase of explore-plan-code-commit workflow when you have a clear implementation plan.
 color: Red
-tools: mcp__container-use__environment_checkpoint,mcp__container-use__environment_file_delete,mcp__container-use__environment_file_list,mcp__container-use__environment_file_read,mcp__container-use__environment_file_write,mcp__container-use__environment_open,mcp__container-use__environment_run_cmd,mcp__container-use__environment_update"
 ---
 
 # Purpose

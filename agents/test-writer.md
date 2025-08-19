@@ -1,7 +1,6 @@
 ---
 name: test-writer
 description: Use proactively for writing comprehensive tests before implementation exists. Specialist for TDD approach - writes failing tests that define desired behavior for new features or functions.
-tools: mcp__container-use__environment_checkpoint,mcp__container-use__environment_file_delete,mcp__container-use__environment_file_list,mcp__container-use__environment_file_read,mcp__container-use__environment_file_write,mcp__container-use__environment_open,mcp__container-use__environment_run_cmd,mcp__container-use__environment_update"
 color: Green
 ---
 
