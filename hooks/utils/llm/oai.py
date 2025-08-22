@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 
 def prompt_llm(prompt_text):
     """
-    Base OpenAI LLM prompting method using fastest model.
+    Base OpenAI LLM prompting method using configured model.
 
     Args:
         prompt_text (str): The prompt to send to the model
@@ -27,22 +27,44 @@ def prompt_llm(prompt_text):
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
         return None
+    
+    # Use model from env or default to gpt-4o
+    model = os.getenv("OPENAI_MODEL_NAME", "gpt-4o")
 
     try:
         from openai import OpenAI
 
-        client = OpenAI(api_key=api_key)
-
-        response = client.chat.completions.create(
-            model="gpt-4.1-nano",  # Fastest OpenAI model
-            messages=[{"role": "user", "content": prompt_text}],
-            max_tokens=100,
-            temperature=0.7,
-        )
+        # Support custom API base for OpenAI-compatible services
+        api_base = os.getenv("OPENAI_API_BASE")
+        if api_base:
+            client = OpenAI(api_key=api_key, base_url=api_base)
+        else:
+            client = OpenAI(api_key=api_key)
+        
+        # Set temperature based on model
+        temperature = 1.0 if "gpt-5" in model else 0.7
+        
+        # Use different parameter name for GPT-5 models
+        if "gpt-5" in model:
+            response = client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": prompt_text}],
+                max_completion_tokens=100,
+                temperature=temperature,
+            )
+        else:
+            response = client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": prompt_text}],
+                max_tokens=100,
+                temperature=temperature,
+            )
 
         return response.choices[0].message.content.strip()
 
-    except Exception:
+    except Exception as e:
+        if os.getenv("DEBUG"):
+            print(f"OpenAI error: {e}", file=sys.stderr)
         return None
 
 
