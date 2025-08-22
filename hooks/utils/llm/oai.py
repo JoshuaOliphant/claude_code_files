@@ -46,10 +46,11 @@ def prompt_llm(prompt_text):
         
         # Use different parameter name for GPT-5 models
         if "gpt-5" in model:
+            # GPT-5-nano requires at least 1000 max_completion_tokens
             response = client.chat.completions.create(
                 model=model,
                 messages=[{"role": "user", "content": prompt_text}],
-                max_completion_tokens=100,
+                max_completion_tokens=1000,
                 temperature=temperature,
             )
         else:

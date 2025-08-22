@@ -13,7 +13,7 @@ import sys
 from dotenv import load_dotenv
 
 
-def prompt_llm_openai(prompt_text, model=None, max_tokens=100, temperature=None):
+def prompt_llm_openai(prompt_text, model=None, max_tokens=1000, temperature=None):
     """
     OpenAI LLM prompting method.
     
@@ -50,10 +50,12 @@ def prompt_llm_openai(prompt_text, model=None, max_tokens=100, temperature=None)
         
         # Use different parameter name for GPT-5 models
         if "gpt-5" in model:
+            # GPT-5-nano requires at least 1000 max_completion_tokens
+            gpt5_max_tokens = max(max_tokens, 1000)
             response = client.chat.completions.create(
                 model=model,
                 messages=[{"role": "user", "content": prompt_text}],
-                max_completion_tokens=max_tokens,
+                max_completion_tokens=gpt5_max_tokens,
                 temperature=temperature,
             )
         else:
@@ -72,7 +74,7 @@ def prompt_llm_openai(prompt_text, model=None, max_tokens=100, temperature=None)
         return None
 
 
-def prompt_llm_anthropic(prompt_text, model="claude-3-5-haiku-20241022", max_tokens=100, temperature=0.7):
+def prompt_llm_anthropic(prompt_text, model="claude-3-5-haiku-20241022", max_tokens=1000, temperature=0.7):
     """
     Anthropic LLM prompting method.
     
@@ -109,7 +111,7 @@ def prompt_llm_anthropic(prompt_text, model="claude-3-5-haiku-20241022", max_tok
         return None
 
 
-def prompt_llm(prompt_text, max_tokens=100, temperature=None, prefer_openai=True):
+def prompt_llm(prompt_text, max_tokens=1000, temperature=None, prefer_openai=True):
     """
     Unified LLM prompting with fallback.
     Tries OpenAI first (with gpt-5-nano), falls back to Anthropic.
