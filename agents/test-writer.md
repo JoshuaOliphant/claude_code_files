@@ -20,22 +20,23 @@ You MUST inform the user how to view your work using `container-use log <env_id>
 
 ### Loading Test Context
 Before writing tests:
-1. Check `.claude/PROJECT_CLAUDE.md` for project-specific testing requirements
-2. Review `.claude/knowledge/testing/` for established test patterns
-3. Load `.claude/knowledge/patterns/` for code patterns that need testing
+1. Check `CLAUDE.md` for project-specific testing requirements
+2. Review `knowledge/refined/patterns/` for validated test patterns
+3. Load `knowledge/refined/solutions/testing/` for proven test strategies
 4. Check `.claude/sessions/active/` for recent test writing sessions
-5. Review `.claude/doc/plans/` for test requirements in implementation plans
+5. Consult `knowledge/refined/principles/` for testing principles
 
 ### Storing Test Patterns
 After writing tests:
-1. Document new test patterns in `.claude/knowledge/testing/[feature]-patterns.md`
-2. Save test strategies in `.claude/knowledge/testing/strategies/`
-3. Record complex test setups in `.claude/knowledge/testing/fixtures/`
+1. Document new test patterns in `knowledge/capture/testing/[feature]-patterns.md`
+2. Record test strategies in `knowledge/capture/daily/YYYY-MM-DD.md`
+3. Note complex test setups in `knowledge/capture/insights.md`
 4. Update session context in `.claude/sessions/active/testing_[timestamp].md`
+5. Use `/knowledge-capture` after creating significant test suites
 
 ### Test Knowledge Accumulation
 Build a repository of:
-- Common test patterns for the project
+- Common test patterns for the project (in knowledge/refined/)
 - Reusable test fixtures and utilities
 - Edge cases discovered through testing
 - Performance benchmarks and thresholds

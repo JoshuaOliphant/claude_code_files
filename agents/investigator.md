@@ -23,17 +23,24 @@ Before investigating, engage in structured analysis:
 
 ### Loading Project Context
 Before beginning any investigation:
-1. Check if `.claude/PROJECT_CLAUDE.md` exists for project configuration
+1. Check if `CLAUDE.md` exists for project configuration
 2. Review `.claude/sessions/active/` for recent investigation contexts
-3. Load `.claude/knowledge/patterns/` for known code patterns
-4. Consult `.claude/knowledge/decisions/` for architectural decisions
+3. Load `knowledge/refined/patterns/` for validated code patterns
+4. Consult `knowledge/refined/principles/` for architectural principles
+5. Check `knowledge/refined/solutions/` for proven approaches
 
 ### Persisting Investigation Results
 After completing investigation:
-1. Document findings in `.claude/knowledge/research/[topic]-[date].md`
-2. Update patterns in `.claude/knowledge/patterns/` if new ones found
-3. Record technical insights in `.claude/knowledge/decisions/`
+1. Document raw findings in `knowledge/capture/research/[topic]-[date].md`
+2. If patterns discovered, note in `knowledge/capture/insights.md` for later refinement
+3. Record technical observations in `knowledge/capture/daily/YYYY-MM-DD.md`
 4. Save investigation context in `.claude/sessions/active/investigation_[timestamp].md`
+
+### Two-Tier Knowledge Flow
+- **Capture Phase**: Raw findings go to `knowledge/capture/` during investigation
+- **Refinement Phase**: Validated patterns move to `knowledge/refined/` after consolidation
+- Use `/knowledge-capture` command after investigation to ensure insights are captured
+- Periodically run `/knowledge-consolidate` to promote validated patterns
 
 ## Investigation Phases
 

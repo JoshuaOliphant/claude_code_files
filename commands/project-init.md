@@ -30,27 +30,28 @@ I will create the following knowledge structure:
 
 ```
 <project-root>/
-├── .claude/                      # Main knowledge directory
-│   ├── PROJECT_CLAUDE.md        # Project-specific configuration
-│   ├── doc/                     # Documentation and plans
-│   │   ├── plans/               # Implementation plans
-│   │   ├── research/            # Research and exploration
-│   │   └── implementation/      # Implementation notes
-│   ├── sessions/                # Session management
-│   │   ├── active/              # Current session contexts
-│   │   └── archive/             # Historical sessions
-│   ├── knowledge/               # Accumulated knowledge
-│   │   ├── patterns/            # Code patterns and solutions
-│   │   ├── decisions/           # Technical decisions
-│   │   └── testing/             # Test strategies
-│   └── context/                 # Context files
-│       ├── TODO.md              # Active tasks
-│       └── CONTEXT.md           # Project context
+├── CLAUDE.md                     # Project-specific configuration
+├── .claude/                      # Claude Code settings only
+│   └── settings.local.json      # Permissions configuration
+└── knowledge/                    # Main knowledge directory
+    ├── doc/                     # Documentation and plans
+    │   ├── plans/               # Implementation plans
+    │   ├── research/            # Research and exploration
+    │   └── implementation/      # Implementation notes
+    ├── sessions/                # Session management
+    │   ├── active/              # Current session contexts
+    │   └── archive/             # Historical sessions
+    ├── patterns/                # Code patterns and solutions
+    ├── decisions/               # Technical decisions
+    ├── testing/                 # Test strategies
+    └── context/                 # Context files
+        ├── TODO.md              # Active tasks
+        └── CONTEXT.md           # Project context
 ```
 
 ### Phase 3: Configuration Files
 
-**PROJECT_CLAUDE.md** will contain:
+**CLAUDE.md** will contain:
 - Project type and technology stack
 - Key commands and workflows
 - Testing and quality requirements
@@ -68,9 +69,9 @@ I will create the following knowledge structure:
 Update `.gitignore` appropriately:
 ```gitignore
 # Claude Code knowledge management
-.claude/sessions/
-.claude/knowledge/private/
-.claude/*.log
+knowledge/sessions/
+knowledge/private/
+knowledge/*.log
 ```
 
 Note: Patterns and decisions are valuable team assets and should be committed.
@@ -89,7 +90,7 @@ Once initialized, you'll have:
 
 1. Detect project type and structure
 2. Create directory hierarchy
-3. Generate PROJECT_CLAUDE.md with project-specific configuration
+3. Generate CLAUDE.md with project-specific configuration
 4. Initialize first session context
 5. Update .gitignore for privacy
 6. Create initial TODO.md and CONTEXT.md

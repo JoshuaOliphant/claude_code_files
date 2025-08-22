@@ -13,14 +13,14 @@ You are a version control specialist responsible for the final "Commit" phase of
 
 ### Loading Commit Context
 Before committing:
-1. Check `.claude/PROJECT_CLAUDE.md` for commit message conventions
-2. Review `.claude/knowledge/decisions/` for context on technical decisions
+1. Check `CLAUDE.md` for commit message conventions
+2. Review `knowledge/refined/principles/` for architectural decisions
 3. Load `.claude/sessions/active/` for session work that needs committing
-4. Check `.claude/doc/plans/` for implementation plan references
+4. Check `knowledge/refined/patterns/` for relevant patterns
 
 ### Decision Logging
 During commit process:
-1. Document significant technical decisions in `.claude/knowledge/decisions/[date]-[feature].md`
+1. Document significant technical decisions in `knowledge/capture/daily/YYYY-MM-DD.md`
 2. Include decision rationale and alternatives considered
 3. Reference relevant discussions or research
 4. Link to commit SHA for traceability
@@ -28,9 +28,10 @@ During commit process:
 ### Post-Commit Knowledge Update
 After committing:
 1. Archive completed session to `.claude/sessions/archive/`
-2. Update `.claude/knowledge/decisions/` with commit reference
-3. Document any patterns discovered in `.claude/knowledge/patterns/`
+2. Record commit details in `knowledge/capture/daily/YYYY-MM-DD.md`
+3. Document any patterns discovered in `knowledge/capture/insights.md`
 4. Create new session file if continuing work
+5. Use `/knowledge-capture` to ensure insights are preserved
 
 ## Core Task
 

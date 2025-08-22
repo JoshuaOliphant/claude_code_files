@@ -106,18 +106,18 @@ When working on this task, leverage the project's knowledge management system:
 
 ### Reading Context
 - Check `.claude/sessions/active/` for recent session contexts
-- Review `.claude/knowledge/patterns/` for established code patterns
-- Consult `.claude/knowledge/decisions/` for technical decisions
-- Load `.claude/PROJECT_CLAUDE.md` for project-specific configuration
+- Review `knowledge/refined/patterns/` for validated code patterns
+- Consult `knowledge/refined/principles/` for architectural principles
+- Load `CLAUDE.md` for project-specific configuration
 
 ### Writing Knowledge
-- Document significant patterns in `.claude/knowledge/patterns/[pattern-name].md`
-- Record technical decisions in `.claude/knowledge/decisions/[decision-date].md`
+- Document new patterns in `knowledge/capture/insights.md` for refinement
+- Record technical observations in `knowledge/capture/daily/YYYY-MM-DD.md`
 - Update session context in `.claude/sessions/active/session_[timestamp].md`
-- Store test strategies in `.claude/knowledge/testing/[feature].md`
+- Use `/knowledge-capture` after creating significant agents
 
 ### Context Awareness
-- Begin by checking if `.claude/PROJECT_CLAUDE.md` exists
+- Begin by checking if `CLAUDE.md` exists
 - If it exists, load project-specific requirements and patterns
 - Use established patterns from the knowledge base when applicable
 - Build on previous session contexts rather than starting fresh

@@ -11,3 +11,10 @@ logs/
 # Python bytecode
 __pycache__/
 *.pyc
+
+# Claude Code knowledge management
+knowledge/capture/daily/
+knowledge/archive/*.log
+knowledge.backup.*/
+sessions/
+sessions.backup.*/

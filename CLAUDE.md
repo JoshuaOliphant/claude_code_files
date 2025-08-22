@@ -175,45 +175,94 @@ The primary development workflow defined in `/commands/epcc.md`:
 
 ## Knowledge Management System
 
-Claude Code now includes an integrated knowledge management system that provides:
+Claude Code now includes a sophisticated two-tier knowledge management system inspired by continuous learning protocols.
 
 ### Features
+- **Two-Tier Architecture**: Raw capture → Refined knowledge pipeline
 - **Persistent Context**: Session information survives Claude Code restarts
 - **Knowledge Accumulation**: Patterns, decisions, and insights build over time
-- **Agent Integration**: All agents can read and write to the knowledge base
+- **Agent Integration**: Specialized agents for capture, refinement, and retrieval
 - **Project Intelligence**: Claude understands your project deeply through accumulated knowledge
+- **Active Refinement**: Consolidate raw insights into generalizable patterns
 
 ### Project Initialization
 When starting work on a new project:
 1. Claude will detect if the project needs initialization
 2. Run `/project-init` to create the knowledge structure
-3. The system creates `.claude/` directory with organized subdirectories
+3. The system creates `.claude/` for configuration and `knowledge/` directory structure
 
 ### Knowledge Structure
 ```
-<project-root>/.claude/
-├── PROJECT_CLAUDE.md    # Project-specific configuration
-├── doc/                 # Documentation and plans
-│   ├── plans/          # Implementation plans
-│   ├── research/       # Research findings
-│   └── implementation/ # Implementation notes
-├── sessions/           # Session management
-│   ├── active/        # Current work sessions
-│   └── archive/       # Historical sessions
-├── knowledge/         # Accumulated knowledge
-│   ├── patterns/      # Code patterns and solutions
-│   ├── decisions/     # Technical decisions
-│   └── testing/       # Test strategies
-└── templates/         # Project templates
+<project-root>/
+├── CLAUDE.md               # Project-specific configuration  
+├── .claude/                # Claude Code settings only
+│   └── settings.local.json # Permissions configuration
+└── knowledge/              # Main knowledge directory
+    ├── capture/            # Raw, immediate insights (Tier 1)
+    │   └── daily/         # Daily capture logs
+    ├── refined/           # Consolidated knowledge (Tier 2)
+    │   ├── patterns/      # Generalizable patterns
+    │   ├── principles/    # Core principles discovered
+    │   └── solutions/     # Proven solutions
+    ├── archive/           # Processed historical knowledge
+    ├── doc/               # Documentation and plans
+    │   ├── plans/         # Implementation plans
+    │   ├── research/      # Research findings
+    │   └── implementation/ # Implementation notes
+    ├── sessions/          # Session management
+    │   ├── active/        # Current work sessions
+    │   └── archive/       # Historical sessions
+    ├── patterns/          # Legacy (migrating to refined/)
+    ├── decisions/         # Legacy (migrating to refined/)
+    ├── testing/           # Test strategies
+    ├── templates/         # Project templates
+    └── context/           # Context files
+        ├── TODO.md        # Active tasks
+        └── CONTEXT.md     # Project context
 ```
 
-### How Agents Use Knowledge
+### Knowledge Management Agents
+- **knowledge-capturer**: Captures raw insights and learnings after tasks
+- **knowledge-refiner**: Consolidates raw knowledge into refined patterns
 - **Investigator**: Stores research findings and discovered patterns
 - **Planner**: Saves implementation plans and architectural decisions
 - **Coder**: Tracks implementation progress and coding patterns
 - **Test-writer**: Documents test patterns and strategies
 - **Committer**: Logs technical decisions with commit references
 - **Meta-agent**: Includes knowledge instructions in new agents
+
+### Knowledge Lifecycle Protocol
+
+#### 1. Capture (Immediate)
+After completing non-trivial tasks, use `/knowledge-capture` to:
+- Document discoveries and new patterns
+- Record challenges and their resolutions
+- Note successful approaches
+- Extract generalizable principles
+- Store in `knowledge/capture/daily/YYYY-MM-DD.md`
+
+#### 2. Consolidate (Periodic)
+Run `/knowledge-consolidate` to:
+- Review unprocessed raw entries
+- Extract patterns from multiple instances
+- Distill core principles
+- Document proven solutions
+- Move refined knowledge to `knowledge/refined/`
+- Archive processed raw entries
+
+#### 3. Retrieve (Before Tasks)
+Before starting work:
+- Check `knowledge/refined/patterns/` for applicable patterns
+- Review `knowledge/refined/solutions/` for proven approaches
+- Load `knowledge/sessions/active/` for current context
+- Consult `knowledge/refined/principles/` for guiding principles
+
+### Quality Gates
+Knowledge must be:
+- **Generalizable**: Applicable beyond single instance
+- **Actionable**: Clear steps for application
+- **Validated**: Observed in 2+ instances
+- **Non-redundant**: Unique from existing knowledge
 
 ### Session Management
 - Sessions track work progress within a project
@@ -222,8 +271,8 @@ When starting work on a new project:
 - Session contexts persist across Claude Code restarts
 
 ### Best Practices
-- Commit `.claude/knowledge/` to share team insights
-- Keep `.claude/sessions/` in .gitignore for privacy
+- Commit `knowledge/` to share team insights (except sessions)
+- Keep `knowledge/sessions/` in .gitignore for privacy
 - Review accumulated patterns periodically
 - Update PROJECT_CLAUDE.md as conventions evolve
 

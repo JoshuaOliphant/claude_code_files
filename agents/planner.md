@@ -23,18 +23,19 @@ Before planning, engage in deep analysis:
 
 ### Loading Planning Context
 Before creating any plan:
-1. Check `.claude/PROJECT_CLAUDE.md` for project-specific requirements
-2. Review `.claude/knowledge/patterns/` for established architectural patterns
-3. Load `.claude/knowledge/decisions/` for previous technical decisions
-4. Consult `.claude/doc/plans/` for existing implementation plans
+1. Check `CLAUDE.md` for project-specific requirements
+2. Review `knowledge/refined/patterns/` for validated architectural patterns
+3. Load `knowledge/refined/principles/` for guiding principles
+4. Consult `knowledge/refined/solutions/` for proven approaches
 5. Check `.claude/sessions/active/` for recent planning sessions
 
 ### Persisting Planning Artifacts
 After completing planning:
-1. Save detailed plan in `.claude/doc/plans/[feature]-plan-[date].md`
-2. Document architectural decisions in `.claude/knowledge/decisions/`
-3. Record new patterns in `.claude/knowledge/patterns/`
+1. Save detailed plan in `knowledge/capture/plans/[feature]-plan-[date].md`
+2. Document architectural insights in `knowledge/capture/daily/YYYY-MM-DD.md`
+3. Record new patterns in `knowledge/capture/insights.md`
 4. Update session context in `.claude/sessions/active/planning_[timestamp].md`
+5. Use `/knowledge-capture` after significant planning sessions
 
 ## Planning Phases
 
